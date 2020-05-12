@@ -1,0 +1,213 @@
+#!/usr/bin/Rscript
+
+# this script processes all data inputs (JHU, OECD, Oxford etc) and
+# outputs RDS files that are ready to be consumed by the Shiny app.
+
+library("tidyverse")
+library("fs")
+library("countrycode")
+library("wbstats")
+library("zoo")
+library("httr")
+library("reshape2")
+library("jsonlite")
+
+source("utils.R", local = T)
+
+#
+# Greece data from covid-19-greece project
+#
+data_greece_all <- GET("https://covid-19-greece.herokuapp.com/all")
+data_greece_ICU <- GET("https://covid-19-greece.herokuapp.com/intensive-care")
+data_greece_total_tests <- GET("https://covid-19-greece.herokuapp.com/total-tests")
+if (data_greece_all["status_code"] == 200 &&
+    data_greece_ICU["status_code"] == 200 &&
+    data_greece_total_tests["status_code"] == 200) {
+  data_greece_all_parsed <- data_greece_all %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first()
+  data_greece_ICU_parsed <- data_greece_ICU %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first() %>%
+    rename("icu" = "intensive_care") %>%
+    fill(icu)
+  data_greece_total_tests_parsed <- data_greece_total_tests %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first() %>%
+    fill(tests) %>%
+    mutate(tests = ifelse(is.na(tests), 0, tests),
+           tests = ifelse(date == "2020-04-13", 43431, tests), # fix badly reported data
+           tests = ifelse(date == "2020-04-14", 47389, tests),
+           tests = ifelse(date == "2020-04-15", 48798, tests))
+    
+  data_greece <- data_greece_all_parsed %>%
+    merge(data_greece_ICU_parsed) %>%
+    merge(data_greece_total_tests_parsed) %>%
+    arrange(date) %>%
+    as_tibble() %>%
+    mutate(date = as.Date(date, format="%Y-%m-%d")) %>%
+    mutate(
+      active_new = active - lag(active, 1),
+      confirmed_new = confirmed - lag(confirmed, 1),
+      deaths_new = deaths - lag(deaths, 1),
+      recovered_new = recovered -  lag(recovered, 1),
+      icu_new = icu - lag(icu, 1) + deaths_new,
+      tests_new = tests - lag(tests, 1)
+    )
+  saveRDS(data_greece, "data/data_greece_all.RDS")
+}
+data_greece_cumulative <- GET("https://covid-19-greece.herokuapp.com/total")
+if (data_greece_cumulative["status_code"] == 200) {
+  data_greece_cumulative_parsed <- data_greece_cumulative %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first()
+  saveRDS(data_greece_cumulative_parsed, "data/data_greece_cumulative.RDS")
+}
+data_greece_geo <- read_csv("data/greece_geo_coordinates.csv")
+data_greece_region <- GET("https://covid-19-greece.herokuapp.com/regions")
+if (data_greece_region["status_code"] == 200) {
+  data_greece_region_parsed <- data_greece_region %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first() %>%
+    rename("confirmed" = "region_cases") %>%
+    merge(data_greece_geo) %>%
+    mutate(confirmedPerCapita = round(100000 * confirmed / population, 2))
+  saveRDS(data_greece_region_parsed, "data/data_greece_region.RDS")
+}
+data_greece_region_timeline <- GET("https://covid-19-greece.herokuapp.com/regions-history")
+if (data_greece_region_timeline["status_code"] == 200) {
+  data_greece_geo <- read_csv("data/greece_geo_coordinates.csv")
+  d <- data_greece_region_timeline %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first()
+  dates <- d %>%
+    pluck("date") %>%
+    enframe() %>%
+    mutate(value = as.Date(value, format = "%Y-%m-%d")) %>%
+    rename("date" = "value", "index" = "name")
+  timeline <- d %>%
+    pluck("regions") %>%
+    melt() %>%
+    filter(variable == "region_cases") %>%
+    select(-variable) %>%
+    merge(data_greece_geo) %>%
+    rename(
+      "region" = "region_en_name",
+      "index" = "L1",
+      "confirmed" = "value"
+      ) %>%
+    merge(dates) %>%
+    select(-index) %>%
+    group_by(region) %>%
+    arrange(region) %>%
+    mutate(confirmed_new = confirmed - lag(confirmed, 1)) %>%
+    mutate(
+      confirmedPerCapita = round(100000 * confirmed / population, 2),
+      confirmedPerCapita_new = round(100000 * confirmed_new / population, 2),
+    ) %>%
+    as_tibble()
+  saveRDS(timeline, "data/data_greece_region_timeline.RDS")
+}
+data_greece_age <- GET("https://covid-19-greece.herokuapp.com/age-distribution")
+if (data_greece_age["status_code"] == 200) {
+  data_greece_age_parsed <- data_greece_age %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first()
+  data_greece_age_distribution <- data_greece_age_parsed$total_age_groups %>%
+    melt() %>%
+    rename("group" = "L2", "var" = "L1") %>%
+    group_by(var) %>%
+    mutate(pct = round(100 * value / sum(value), 2)) %>%
+    ungroup()
+  data_greece_age_averages <- c(case = data_greece_age_parsed$age_average,
+                                death = data_greece_age_parsed$average_death_age)
+  saveRDS(data_greece_age_distribution, "data/data_greece_age_distribution.RDS")
+  saveRDS(data_greece_age_averages, "data/data_greece_age_averages.RDS")
+}
+data_greece_gender <- GET("https://covid-19-greece.herokuapp.com/gender-distribution")
+if (data_greece_gender["status_code"] == 200) {
+  data_greece_gender_parsed <- data_greece_gender %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    first() %>%
+    melt() %>%
+    rename("Gender" = "L1", "Percentage" = "value") %>%
+    mutate(Gender = recode(Gender, "total_females" = "Female", "total_males" = "Male"))
+  saveRDS(data_greece_gender_parsed, "data/data_greece_gender.RDS")
+}
+
+
+#
+# Update the dates
+#
+current_date <- max(data_greece_all$date) %>% format("%m/%d/%y")
+changed_date <- Sys.time()
+saveRDS(current_date, "data/current_date.RDS")
+saveRDS(changed_date, "data/changed_date.RDS")
+
+#
+# West Macedonia
+#
+data_west_macedonia <- GET("https://covid-19-greece.herokuapp.com/western-macedonia")
+if (data_west_macedonia["status_code"] == 200) {
+  data_hospitals_geo <- read_csv("data/west_macedonia_hospital_geo_coordinates.csv")
+  d <- data_west_macedonia %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    pluck("western-macedonia")
+  dates <- d %>%
+    pluck("date") %>%
+    enframe() %>%
+    mutate(value = as.Date(value, format = "%Y-%m-%d")) %>%
+    rename("date" = "value", "index" = "name")
+  hospitals <- d %>%
+    pluck("hospitals") %>%
+    melt() %>%
+    rename("index" = "L1") %>%
+    merge(dates) %>%
+    select(-index) %>%
+    merge(data_hospitals_geo) %>%
+    as_tibble() %>%
+    group_by(hospital_name, variable) %>%
+    arrange(hospital_name, variable, date) %>%
+    spread(variable, value)
+  hospitals_summed <- hospitals %>%
+    group_by(date) %>%
+    summarise(
+      home_restriction_current = sum(home_restriction_current, na.rm = TRUE),
+      hospitalized_positive = sum(hospitalized_positive, na.rm = TRUE),
+      hospitalized_current = sum(hospitalized_current, na.rm = TRUE),
+      hospitalized_negative = sum(hospitalized_negative, na.rm = TRUE),
+      hospitalized_pending_result = sum(hospitalized_pending_result, na.rm = TRUE),
+      new_recoveries = sum(new_recoveries, na.rm = TRUE),
+      new_samples = sum(new_samples, na.rm = TRUE)
+    ) %>%
+    rename("tests_new" = "new_samples")
+  total <- d$total %>%
+    mutate(index = rownames(d)) %>%
+    merge(dates) %>%
+    merge(hospitals_summed) %>%
+    select(-index) %>%
+    rename(
+      "confirmed" = "total_samples_positive",
+      "deaths" = "total_deaths",
+      "tests" = "total_samples",
+      "tests_negative" = "total_samples_negative",
+      "icu" = "hospitalized_ICU_current"
+    ) %>%
+    mutate(
+      recoveries = confirmed - hospitalized_current - home_restriction_current,
+      active = confirmed - recoveries
+    ) %>%
+    as_tibble()
+  saveRDS(hospitals, file = "data/data_west_macedonia_hospitals.RDS")
+  saveRDS(total, file = "data/data_west_macedonia_total.RDS")
+}
+  
