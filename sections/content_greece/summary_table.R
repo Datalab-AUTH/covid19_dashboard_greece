@@ -1,6 +1,10 @@
 output$summary_table_greece <- renderUI({
   tabBox(
-    tabPanel("Επιβεβαιωμένα κρούσματα ανά Περιφέρεια",
+    tabPanel(paste0(
+              "Επιβεβαιωμένα κρούσματα ανά Περιφέρεια (",
+              format(input$timeslider_greece, format="%d/%m/%Y"),
+              ")"
+            ),
              div(
                dataTableOutput("summaryDT_greece"),
                style = "margin-top: -10px")
