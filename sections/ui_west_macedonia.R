@@ -1,6 +1,6 @@
 body_west_macedonia <- dashboardBody(
   tags$head(
-    tags$style(type = "text/css", "#overview_map_greece {height: 50vh !important;}"),
+    tags$style(type = "text/css", "#overview_map_west_macedonia {height: 50vh !important;}"),
     tags$style(type = 'text/css', ".slider-animate-button { font-size: 20pt !important; }"),
     tags$style(type = 'text/css', ".slider-animate-container { text-align: left !important; }"),
     tags$style(type = "text/css", "@media (max-width: 991px) { .details { display: flex; flex-direction: column; } }"),
@@ -45,9 +45,9 @@ body_west_macedonia <- dashboardBody(
         sliderInput(
           "timeslider_west_macedonia",
           label      = "Επιλογή ημερομηνίας",
-          min        = min(data_greece_region_timeline$date),
-          max        = max(data_greece_region_timeline$date),
-          value      = max(data_greece_region_timeline$date),
+          min        = min(data_west_macedonia_hospitals$date),
+          max        = max(data_west_macedonia_hospitals$date),
+          value      = max(data_west_macedonia_hospitals$date),
           width      = "100%",
           timeFormat = "%d.%m.%Y",
           animate    = animationOptions(interval = 1000, loop = TRUE)
