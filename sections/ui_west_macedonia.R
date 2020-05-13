@@ -32,13 +32,13 @@ body_west_macedonia <- dashboardBody(
           leafletOutput("overview_map_west_macedonia")
         ),
         class = "map",
-        width = 8,
+        width = 6,
         style = 'padding:0px;'
       ),
       column(
         uiOutput("summary_table_west_macedonia"),
         class = "summary",
-        width = 4,
+        width = 6,
         style = 'padding:0px;'
       ),
       column(
