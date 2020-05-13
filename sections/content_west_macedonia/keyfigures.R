@@ -137,8 +137,8 @@ output$box_keyFigures_west_macedonia <- renderUI(box(
   ),
   fluidRow(
     column(
-      valueBoxOutput("valueBox_west_macedonia_hospital", width = 3),
       valueBoxOutput("valueBox_west_macedonia_icu", width = 3),
+      valueBoxOutput("valueBox_west_macedonia_hospital", width = 3),
       valueBoxOutput("valueBox_west_macedonia_home", width = 3),
       valueBoxOutput("valueBox_west_macedonia_tests", width = 3),
       width = 12,
