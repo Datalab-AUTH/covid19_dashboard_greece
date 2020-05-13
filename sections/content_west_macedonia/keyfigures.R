@@ -149,7 +149,10 @@ output$box_keyFigures_west_macedonia <- renderUI(box(
     "Τελευταία ενημέρωση: ", strftime(changed_date, format = "%d/%m/%Y - %R %Z. "),
     "Τα δεδομένα παρέχονται από την εθελοντική δράση για την αντιμετώπιση της πανδημίας",
     tags$a(href = "https://www.covid19response.gr/",
-           "COVID-19 Response Greece.")
+           "COVID-19 Response Greece"),
+    "σε συνεργασία με την",
+    tags$a(href = "https://www.pdm.gov.gr/",
+           "Περιφέρεια Δυτικής Μακεδονίας.")
       ),
   width = 12
 ))
