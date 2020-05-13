@@ -41,7 +41,10 @@ getSummaryDT_greece <- function(data) {
       scrollY        = "37vh",
       scrollCollapse = T,
       dom            = 'ft',
-      paging         = FALSE
+      paging         = FALSE,
+      language       = list(
+        search = "Αναζήτηση:"
+      )
     ),
     selection = "none"
   )
