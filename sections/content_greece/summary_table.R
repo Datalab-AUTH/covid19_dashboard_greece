@@ -47,7 +47,8 @@ getSummaryDT_greece <- function(data) {
       dom            = 'ft',
       paging         = FALSE,
       language       = list(
-        search = "Αναζήτηση:"
+        search = "Αναζήτηση:",
+        zeroRecords  = "Δεν βρέθηκαν δεδομένα"
       )
     ),
     selection = "none"
