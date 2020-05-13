@@ -23,7 +23,7 @@ map_west_macedonia <- leaflet(addLabel_west_macedonia(data_west_macedonia_hospit
   ) %>%
   addEasyButton(easyButton(
     icon    = "glyphicon glyphicon-globe", title = "Reset zoom",
-    onClick = JS("function(btn, map){ map.setView([38, 23], 6); }")))
+    onClick = JS("function(btn, map){ map.setView([40.45, 21.5], 6); }")))
 
 observe({
   req(input$timeslider_west_macedonia)
