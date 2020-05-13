@@ -189,7 +189,8 @@ if (data_west_macedonia["status_code"] == 200) {
       new_recoveries = sum(new_recoveries, na.rm = TRUE),
       new_samples = sum(new_samples, na.rm = TRUE)
     ) %>%
-    rename("tests_new" = "new_samples")
+    rename("tests_new" = "new_samples") %>%
+    ungroup()
   total <- d$total %>%
     mutate(index = rownames(d)) %>%
     merge(dates) %>%
