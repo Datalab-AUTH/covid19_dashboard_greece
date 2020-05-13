@@ -23,18 +23,18 @@ server <- function(input, output, session) {
   })
   
   # West Macedonia
-  # observe({
-  #   data_west_macedonia <- data_atDate_west_macedonia(input$timeslider_west_macedonia)
-  # })
-  # 
-  # observe({
-  #   updateSliderInput(
-  #     session,
-  #     "timeslider_west_macedonia",
-  #     max = max(data_west_macedonia_hospitals$date),
-  #     value = max(data_west_macedonia_hospitals$date)
-  #   )
-  # })
+  observe({
+    data_west_macedonia <- data_atDate_west_macedonia(input$timeslider_west_macedonia)
+  })
+
+  observe({
+    updateSliderInput(
+      session,
+      "timeslider_west_macedonia",
+      max = max(data_west_macedonia_hospitals$date),
+      value = max(data_west_macedonia_hospitals$date)
+    )
+  })
   
   # URL Queries
   observe({
