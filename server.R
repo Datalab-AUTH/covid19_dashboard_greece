@@ -44,7 +44,6 @@ server <- function(input, output, session) {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-greece")
       } else if (query$tab == "west-macedonia") {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-west-macedonia")
-      }
       } else if (query$tab == "about") {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-about")
       }
