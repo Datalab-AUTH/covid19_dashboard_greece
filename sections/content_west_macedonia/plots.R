@@ -112,3 +112,35 @@ output$tests_west_macedonia <- renderPlotly({
   )
   return(p)
 })
+
+
+output$discharges_by_hospital_west_macedonia <- renderPlotly({
+  data <- data_west_macedonia_hospitals
+  
+  p <- plot_ly(data = data, x = ~date, y = ~new_recoveries, color = ~hospital_name_el_short, type = 'bar') %>%
+    layout(
+      yaxis = list(title = "Αριθμός εξιτηρίων"),
+      xaxis = list(
+        title = "Ημερομηνία",
+        type = "date",
+        tickformat = "%d/%m/%y"
+      )
+    )
+  p <- layout(p,
+              barmode = "stack",
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return (p)
+})
