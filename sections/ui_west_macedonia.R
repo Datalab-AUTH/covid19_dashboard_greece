@@ -27,18 +27,18 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       class = "details",
       column(
-        uiOutput("summary_table_west_macedonia"),
-        class = "summary",
-        width = 7,
-        style = 'padding:0px;'
-      ),
-      column(
         box(
           width = 12,
           leafletOutput("overview_map_west_macedonia")
         ),
         class = "map",
         width = 5,
+        style = 'padding:0px;'
+      ),
+      column(
+        uiOutput("summary_table_west_macedonia"),
+        class = "summary",
+        width = 7,
         style = 'padding:0px;'
       ),
       column(

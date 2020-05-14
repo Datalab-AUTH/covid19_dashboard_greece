@@ -27,17 +27,17 @@ body_greece <- dashboardBody(
     fluidRow(
       class = "details",
       column(
-        uiOutput("summary_table_greece"),
-        class = "summary",
-        width = 6,
-        style = 'padding:0px;'
-      ),
-      column(
         box(
           width = 12,
           leafletOutput("overview_map_greece")
         ),
         class = "map",
+        width = 6,
+        style = 'padding:0px;'
+      ),
+      column(
+        uiOutput("summary_table_greece"),
+        class = "summary",
         width = 6,
         style = 'padding:0px;'
       ),
