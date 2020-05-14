@@ -8,13 +8,6 @@
 
 pull_latest_data() {
 	(
-	 echo "Updating JHU data"
-	 cd data/JHU_data
-	 git pull origin master
-	 echo "Updating Oxford data"
-	 cd ../../data/oxford_data
-	 git pull origin master
-	 cd ../..
 	 echo "Updating RDS files"
 	 Rscript ./process_data.R
 	)
