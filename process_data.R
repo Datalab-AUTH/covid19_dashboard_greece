@@ -139,7 +139,7 @@ if (data_greece_gender["status_code"] == 200) {
     first() %>%
     melt() %>%
     rename("Gender" = "L1", "Percentage" = "value") %>%
-    mutate(Gender = recode(Gender, "total_females" = "Female", "total_males" = "Male"))
+    mutate(Gender = recode(Gender, "total_females" = "Γυναίκες", "total_males" = "Άνδρες"))
   saveRDS(data_greece_gender_parsed, "data/data_greece_gender.RDS")
 }
 
