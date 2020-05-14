@@ -55,11 +55,6 @@ body_west_macedonia <- dashboardBody(
         class = "slider",
         width = 12,
         style = 'padding-left:15px; padding-right:15px;'
-      ),
-      column(
-        uiOutput("timeslider_west_macedonia_note"),
-        width = 12,
-        style = "padding-bottom: 50px; padding-right: 50px; padding-left: 50px;"
       )
     )
   ),
