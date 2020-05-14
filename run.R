@@ -5,4 +5,4 @@
 
 library(renv)
 renv::restore()
-shiny::runApp(host = "0.0.0.0", port = 5555, launch.browser = FALSE)
+shiny::runApp(host = "0.0.0.0", port = 5557, launch.browser = FALSE)
