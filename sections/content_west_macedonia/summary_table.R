@@ -28,12 +28,12 @@ summariseData_west_macedonia <- function(df) {
     ungroup() %>%
     select(
       "hospital_name_el_short",
-      "new_samples",
       "hospitalized_current",
       "hospitalized_positive",
       "hospitalized_negative",
       "hospitalized_pending_result",
       "home_restriction_current",
+      "new_samples",
       "new_recoveries"
       ) %>%
     rename(
