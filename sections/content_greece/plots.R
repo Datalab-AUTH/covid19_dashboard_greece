@@ -1,14 +1,18 @@
 
 output$case_evolution_greece <- renderPlotly({
     data <- data_greece_all
-    p <- plot_ly(data = data, x = ~date, y = ~active, type = 'scatter', mode = 'lines', name = "Active") %>%
-    add_trace(data = data, x = ~date, y = ~confirmed, type = 'scatter', mode = 'lines', name = "Confirmed") %>%
-    add_trace(data = data, x = ~date, y = ~recovered, type = 'scatter', mode = 'lines', name = "Recovered") %>%
-    add_trace(data = data, x = ~date, y = ~deaths, type = 'scatter', mode = 'lines', name = "Deceased") %>%
-    add_trace(data = data, x = ~date, y = ~icu, type = 'scatter', mode = 'lines', name = "Intensive Care") %>%
+    p <- plot_ly(data = data, x = ~date, y = ~active, type = 'scatter', mode = 'lines', name = "Ενεργά") %>%
+    add_trace(data = data, x = ~date, y = ~confirmed, type = 'scatter', mode = 'lines', name = "Επιβεβαιωμένα") %>%
+    add_trace(data = data, x = ~date, y = ~recovered, type = 'scatter', mode = 'lines', name = "Αναρρώσεις") %>%
+    add_trace(data = data, x = ~date, y = ~deaths, type = 'scatter', mode = 'lines', name = "Θάνατοι") %>%
+    add_trace(data = data, x = ~date, y = ~icu, type = 'scatter', mode = 'lines', name = "ΜΕΘ") %>%
     layout(
-      yaxis = list(title = "# Cases", rangemode = "nonnegative"),
-      xaxis = list(title = "Date")
+      yaxis = list(title = "Αριθμός κρουσμάτων", rangemode = "nonnegative"),
+      xaxis = list(
+        title = "Ημερομηνία",
+        type = "date",
+        tickformat = "%d/%m/%y"
+        )
     )
   
   if (input$checkbox_logCaseEvolution_greece) {
@@ -35,11 +39,15 @@ output$case_evolution_greece <- renderPlotly({
 
 output$cases_per_day_greece <- renderPlotly({
   data <- data_greece_all
-  p <- plot_ly(data = data, x = ~date, y = ~confirmed_new, type = 'scatter', mode = 'lines', name = "Confirmed") %>%
-    add_trace(data = data, x = ~date, y = ~deaths_new, type = 'scatter', mode = 'lines', name = "Deceased") %>%
+  p <- plot_ly(data = data, x = ~date, y = ~confirmed_new, type = 'scatter', mode = 'lines', name = "Επιβεβαιωμένα") %>%
+    add_trace(data = data, x = ~date, y = ~deaths_new, type = 'scatter', mode = 'lines', name = "Θάνατοι") %>%
     layout(
-      yaxis = list(title = "# Cases"),
-      xaxis = list(title = "Date")
+      yaxis = list(title = "Αριθμός κρουσμάτων"),
+      xaxis = list(
+        title = "Ημερομηνία",
+        type = "date",
+        tickformat = "%d/%m/%y"
+      )
     )
   
   p <- layout(p,
@@ -62,16 +70,20 @@ output$cases_per_day_greece <- renderPlotly({
 
 output$tests_greece <- renderPlotly({
   data <- data_greece_all
-  p <- plot_ly(data = data, x = ~date, y = ~tests_new, type = 'bar', name = "New Tests") %>%
-    add_trace(data = data, x = ~date, y = ~tests, type = 'scatter', mode = 'lines', name = "Total Tests", yaxis = "y2") %>%
+  p <- plot_ly(data = data, x = ~date, y = ~tests_new, type = 'bar', name = "Νέοι έλεγχοι δειγμάτων") %>%
+    add_trace(data = data, x = ~date, y = ~tests, type = 'scatter', mode = 'lines', name = "Συνολικός αριθμός", yaxis = "y2") %>%
     layout(
-      yaxis = list(title = "New Tests", rangemode = "nonnegative"),
+      yaxis = list(title = "Έλεγχοι δειγμάτων", rangemode = "nonnegative"),
       yaxis2 = list(
         overlaying = "y",
         side = "right",
-        title = "Total Tests"
+        title = "Συνολικός αριθμός δειγμάτων"
       ),
-      xaxis = list(title = "Date")
+      xaxis = list(
+        title = "Ημερομηνία",
+        type = "date",
+        tickformat = "%d/%m/%y"
+      )
     )
   
   if (input$checkbox_log_tests_greece) {
@@ -131,10 +143,10 @@ output$age_greece <- renderPlotly({
     filter(var == input$age_var_greece)
   
   if (input$checkbox_age_pct_greece) {
-    y_label <- "Percentage"
+    y_label <- "Ποσοστό"
     y_values <- data$pct
   } else {
-    y_label <- "Number of People"
+    y_label <- "Αριθμός ατόμων"
     y_values <- data$value
   }
   
@@ -146,7 +158,7 @@ output$age_greece <- renderPlotly({
               marker = list(color = bar_color)
       ) %>%
       layout(
-        xaxis = list(title = "Age Group"),
+        xaxis = list(title = "Ηλικιακή ομάδα"),
         yaxis = list(title = y_label)
       )
   
@@ -171,8 +183,8 @@ output$age_greece <- renderPlotly({
 output$select_age_var_greece <- renderUI((
   selectizeInput(
     "age_var_greece",
-    label = "Select Variable",
-    choices = list("Confirmed cases" = "cases", "Critical Condition" = "critical", "Deaths" = "deaths"),
+    label = "Επιλογή μεταβλητής",
+    choices = list("Επιβεβαιωμένα κρούσματα" = "cases", "Σε κρίσιμη κατάσταση" = "critical", "Θάνατοι" = "deaths"),
     selected = "cases",
     multiple = FALSE
   )

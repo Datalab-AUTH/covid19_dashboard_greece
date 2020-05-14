@@ -54,21 +54,24 @@ output$tests_greece_text <- renderText(
 
 output$gender_greece_text <- renderText(
   paste(
-    em("Observe the gender distribution of patients."),
+    em("Ποια είναι η κατανομή των δύο φύλων στους ασθενείς;"),
     br(),br(),
-    "This plot shows gender ratio of the patients reported in Greece."
+    "Το γράφημα οπτικοποιεί τα ποσοστά που αντιστοιχούν στα δύο φύλα για τα
+    επιβεβαιωμένα κρούσματα COVID-19 στην Ελλάδα."
   )
 )
 
 output$age_greece_text <- renderText(
   paste(
-    em("Explore the age distribution of patients"),
+    em("Ποια είναι η ηλικία των ασθενών;"),
     br(),br(),
-    "With this plot you can view the age distribution of confirmed cases,
-    patients that are in critical condition and deaths due to COVID-19.",
+    "Στο γράφημα μπορείτε να δείτε την ηλικιακή κατανομή για τα επιβεβαιωμένα
+    κρούσματα, για τους ασθενείς που βρίσκονται σε κρίσιμη κατάσταση, αλλά και
+    για τους θανάτους που οφείλονται στον COVID-19.",
     br(),br(),
-    "You may select which variable you would like to use and whether to view
-    absolute numbers or percentages."
+    "Μπορείτε να επιλέξετε τη μεταβλητή που επιθυμείτε να οπτικοποιήσετε, όπως
+    επίσης και να επιλέξετε μεταξύ του να βλέπετε τον αριθμό των ατόμων ή τα
+    ποσοστά τους."
   )
 )
 
