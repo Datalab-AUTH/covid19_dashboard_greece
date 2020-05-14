@@ -64,11 +64,11 @@ body_greece <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Evolution of Cases since Outbreak",
+        title = "Εξέλιξη των κρουσμάτων",
         plotlyOutput("case_evolution_greece"),
         column(
-          checkboxInput("checkbox_logCaseEvolution_greece", label = "Logarithmic Y-Axis", value = FALSE),
-          width = 3,
+          checkboxInput("checkbox_logCaseEvolution_greece", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
+          width = 4,
           style = "float: right; padding: 10px; margin-right: 50px"
         ),
         width = 6
@@ -84,7 +84,7 @@ body_greece <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "New Cases",
+        title = "Νέα κρούσματα",
         plotlyOutput("cases_per_day_greece"),
         width = 6
       ),
@@ -99,10 +99,10 @@ body_greece <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "COVID-19 Tests Performed",
+        title = "Έλεγχοι δειγμάτων COVID-19",
         plotlyOutput("tests_greece"),
         column(
-          checkboxInput("checkbox_log_tests_greece", label = "Logarithmic Y-Axis (Total Tests)", value = FALSE),
+          checkboxInput("checkbox_log_tests_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
           style = "float: right; padding: 10px; margin-right: 50px"
         ),
@@ -119,14 +119,14 @@ body_greece <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Age Distribution",
+        title = "Ηλικιακή κατανομή",
         plotlyOutput("age_greece"),
         column(
           uiOutput("select_age_var_greece"),
-          width = 3,
+          width = 4,
         ),
         column(
-          checkboxInput("checkbox_age_pct_greece", label = "Show percentages", value = FALSE),
+          checkboxInput("checkbox_age_pct_greece", label = "Εμφάνιση ποσοστών", value = FALSE),
           width = 3,
           style = "float: right; padding: 10px; margin-right: 50px"
         ),
@@ -143,7 +143,7 @@ body_greece <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Gender Distribution",
+        title = "Κατανομή φύλων",
         plotlyOutput("gender_greece"),
         width = 6
       ),
