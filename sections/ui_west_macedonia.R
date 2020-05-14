@@ -56,7 +56,67 @@ body_west_macedonia <- dashboardBody(
         width = 12,
         style = 'padding-left:15px; padding-right:15px;'
       )
-    )
+    ),
+    fluidRow(
+      box(
+        title = "Εξέλιξη των κρουσμάτων",
+        plotlyOutput("case_evolution_west_macedonia"),
+        column(
+          checkboxInput("checkbox_logCaseEvolution_west_macedonia", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
+          width = 4,
+          style = "float: right; padding: 10px; margin-right: 50px"
+        ),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("case_evolution_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
+        title = "Εξέλιξη των κρουσμάτων",
+        plotlyOutput("hospitalized_west_macedonia"),
+        column(
+          checkboxInput("checkbox_logHospitalized_west_macedonia", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
+          width = 4,
+          style = "float: right; padding: 10px; margin-right: 50px"
+        ),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("hospitalized_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
+        title = "Έλεγχοι δειγμάτων COVID-19",
+        plotlyOutput("tests_west_macedonia"),
+        column(
+          checkboxInput("checkbox_log_tests_west_macedonia", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
+          width = 4,
+          style = "float: right; padding: 10px; margin-right: 50px"
+        ),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("tests_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
   ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),
   tags$style(type = 'text/css', ".nav-tabs-custom > .nav-tabs > li > a {color: #fff;}"),
