@@ -79,7 +79,7 @@ body_west_macedonia <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Εξέλιξη των κρουσμάτων",
+        title = "Νοσηλευόμενοι",
         plotlyOutput("hospitalized_west_macedonia"),
         column(
           checkboxInput("checkbox_logHospitalized_west_macedonia", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
