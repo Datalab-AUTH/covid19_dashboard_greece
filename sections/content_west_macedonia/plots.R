@@ -124,7 +124,8 @@ output$discharges_by_hospital_west_macedonia <- renderPlotly({
         title = "Ημερομηνία",
         type = "date",
         tickformat = "%d/%m/%y"
-      )
+      ),
+      legend = list(title=list(text='<b>Νοσοκομείο</b>'))
     )
   p <- layout(p,
               barmode = "stack",
