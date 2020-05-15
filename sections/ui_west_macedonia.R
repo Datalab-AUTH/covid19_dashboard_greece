@@ -99,6 +99,21 @@ body_west_macedonia <- dashboardBody(
     ),
     fluidRow(
       box(
+        title = "Σε κατ'οίκον περιορισμό",
+        plotlyOutput("home_restriction_west_macedonia"),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("home_restriction_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
         title = "Έλεγχοι δειγμάτων COVID-19",
         plotlyOutput("tests_west_macedonia"),
         column(
