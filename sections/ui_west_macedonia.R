@@ -99,6 +99,21 @@ body_west_macedonia <- dashboardBody(
     ),
     fluidRow(
       box(
+        title = "Εξιτήρια",
+        plotlyOutput("discharges_by_hospital_west_macedonia"),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("discharges_by_hospital_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
         title = "Σε κατ'οίκον περιορισμό",
         plotlyOutput("home_restriction_west_macedonia"),
         width = 6
@@ -131,22 +146,7 @@ body_west_macedonia <- dashboardBody(
         ),
         width = 6
       )
-    ),
-    fluidRow(
-      box(
-        title = "Εξιτήρια",
-        plotlyOutput("discharges_by_hospital_west_macedonia"),
-        width = 6
-      ),
-      box(
-        column(
-          uiOutput("discharges_by_hospital_west_macedonia_text"),
-          width = 12,
-          style = "padding: 50px;"
-        ),
-        width = 6
-      )
-    ),
+    )
   ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),
   tags$style(type = 'text/css', ".nav-tabs-custom > .nav-tabs > li > a {color: #fff;}"),
