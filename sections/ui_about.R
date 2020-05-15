@@ -3,121 +3,106 @@ body_about <- dashboardBody(
     fluidRow(
       column(
         box(
-          title = div("About this project", style = "padding-left: 20px", class = "h2"),
+          title = div("Πληροφοριακή πλατφόρμα για τον κορωνοϊό", style = "padding-left: 20px", class = "h2"),
           column(
-            "CovidDExp (COVID-19 Data Exploration) is an exploratory data
-            analysis tool with a visually rich presentation of the COVID-19
-            pandemic. It includes processing of reliable real-time evolving data
-            with qualitative data examined against a series of selected
-            indicators to monitor and detail the worldwide virus outbreak
-            situation under a holistic approach.",
+            "Η πλατφόρμα CovidDExp (COVID-19 Data Exploration) αποτελεί ένα
+            εργαλείο διερεύνησης, ανάλυσης
+            κι οπτικοποίησης δεδομένων που σχετίζονται με την πανδημία του
+            κορωνοϊού COVID-19.
+            Περιλαμβάνει την επεξεργασία αξιόπιστων και σε πραγματικό χρόνο
+            εξελισσόμενων δεδομένων σε σχέση
+            με μια σειρά επιλεγμένων δεικτών για την παρακολούθηση και την
+            περιγραφή της παγκόσμιας επιδημίας σε εθνικό επίπεδο.",
             br(),
-            h3("Motivation"),
-            "CovidDExp was born by scientific curiosity and eagerness to
-            understand and examine the global pandemic crisis and its parameters
-            from the data scientist perspective. Beyond the evolution of the
-            pandemic and epidemic statistics, our intention is to discover and
-            explore correlations and connections with socio-economic and
-            governmental indicators that can highlight alternate angles and
-            provide further insights to the interested viewer. This initiative
-            is launched and supported by members of the",
+            h3("Κίνητρο"),
+            "Το CovidDExp είναι αποτέλεσμα της επιστημονικής περιέργειας και της
+            προθυμίας για την διερεύνηση και
+            κατανόηση της παγκόσμιας πανδημικής κρίσης, από την πλευρά των
+            επιστημόνων των δεδομένων (Data Scientists).
+            Πέρα από τις πανδημικές και επιδημικές στατιστικές αναλύσεις, πρόθεσή
+            μας είναι να ανακαλύψουμε και να ερευνήσουμε πιθανές συσχετίσεις και
+            συνδέσεις με άλλους δείκτες (κοινωνικοοικονομικούς, κυβερνητικούς,
+            κτλ.) που μπορεί να επισημάνουν εναλλακτικές οπτικές γωνίες και να
+            παρέχουν περισσότερες πληροφορίες στους εκάστοτε ενδιαφερόμενους.
+            Η πρωτοβουλία αυτή ξεκίνησε και υποστηρίζεται από τα μέλη του
+            εργαστηρίου επιστήμης δεδομένων και παγκόσμιου ιστού",
             tags$a(href = "https://datalab.csd.auth.gr",
                    "Data and Web Science Lab"),
-            "(DATALAB)",
-            "an active research group engaged in ICT research and innovation on
-            data science and multi scope analytics under the",
+            "(DATALAB),",
+            "μια ενεργή ερευνητική ομάδα που ασχολείται με την έρευνα και την καινοτομία στην
+            επιστήμη κι ανάλυση δεδομένων πολλαπλών πεδίων και στις Τεχνολογίες 
+            ληροφορικής κι Επικοινωνιών στο ",
+            tags$a(href = "https://www.csd.auth.gr","Tμήμα Πληροφορικής")," του",
             tags$a(href = "https://www.csd.auth.gr",
-                   "Department of Informatics,"),
-            tags$a(href = "https://www.csd.auth.gr",
-                   "Aristotle University of Thessaloniki,"),
-            "Greece. Since, apparently, the case of Greece is important to us,
-            there is a specialized section that examines the evolution of the
-            disease in it.",
-            h3("Data Sources"),
-            "This project aggregates and combines publicly available data from
-            several different sources. These include:",
+                   "Αριστοτέλειου Πανεπιστημίου Θεσσαλονίκης"),
+            "Καθώς, για προφανείς λόγους, η περίπτωση της Ελλάδας είναι
+            εξέχουσας σημασίας, η υπάρχουσα πλατφόρμα επικεντρώνεται στην
+            εξέταση της εξέλιξης των δεδομένων στον Ελλαδικό χώρο. Ωστόσο, στον
+            παρακάτω σύνδεσμο:",
+            tags$a(href = "https://covid19.csd.auth.gr/","CovidDEXP Global"),
+            " είναι επίσης διαθέσιμη και μία εκδοχή της πλατφόρμας που
+            περιλαμβάνει δεδομένα κι αναλύσεις σε παγκόσμιο επίπεδο.",
+            h3("Πηγές δεδομένων"),
+            "Το έργο αυτό συγκεντρώνει και συνδυάζει δημόσια διαθέσιμα δεδομένα από
+            διαφορετικές πηγές. Σ'αυτές περιλαμβάνονται:",
             tags$ul(
-              tags$li(tags$b("COVID-19 Data:"),
-                      tags$a(href = "https://github.com/CSSEGISandData/COVID-19",
-                            "Johns Hopkins CSSE")),
-              tags$li(tags$b("Population Data:"),
-                      tags$a(href = "https://data.worldbank.org/indicator/SP.POP.TOTL",
-                             "The World Bank"),
-                      "& Wikipedia for countries which are not in World Bank
-                      data set."),
-              tags$li(tags$b("Human Freedom Index:"),
-                      tags$a(href = "https://www.cato.org/human-freedom-index-new",
-                            "CATO Institute")),
-              tags$li(tags$b("Socioeconomic Data:"),
-                      tags$a(href = "http://www.oecd.org/",
-                            "OECD")),
-              tags$li(tags$b("Health Expediture Data:"),
-                      tags$a(href = "https://data.worldbank.org/indicator/SH.XPD.CHEX.GD.ZS",
-                            "The World Bank")),
-              tags$li(tags$b("Government Response Data:"),
-                      tags$a(href = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker",
-                            "Oxford COVID-19 Government Response Tracker")),
-              tags$li(tags$b("Greece Data:"),
+              tags$li(tags$b("Δεδομένα εξάπλωσης του COVID-19 στην Ελλάδα:"),
                       tags$a(href = "https://www.covid19response.gr/",
-                             "COVID-19 Response Greece"))
+                             "COVID-19 Response Greece")),
+              tags$li(tags$b("Δεδομένα Δυτικής Μακεδονίας:"),
+                      tags$a(href = "https://www.pdm.gov.gr/",
+                             "Περιφέρεια Δυτικής Μακεδονίας"))
             ),
-            h3("Links to this page"),
-            "You may link to this page using its main URL:",
-            tags$a(href = "https://covid19.csd.auth.gr/",
-                   "https://covid19.csd.auth.gr/"),
+            h3("Σύνδεσμοι προς αυτή τη σελίδα"),
+            "Μπορείτε να συνδεθείτε σε αυτήν τη σελίδα χρησιμοποιώντας το κύριο της σύνδεσμο:",
+            tags$a(href = "https://covid19.csd.auth.gr/greece",
+                   "https://covid19.csd.auth.gr/greece"),
             br(),br(),
-            "You may also link directly to any one of the different tabs:",
+            "Μπορείτε επίσης να χρησιμοποιήσετε συνδέσμους για οποιαδήποτε από
+            τις διαθέσιμες υποσελίδες:",
             tags$ul(
-              tags$li(tags$b("World Overview:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=world",
-                             "https://covid19.csd.auth.gr/?tab=world")),
-              tags$li(tags$b("Data Table:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=datatable",
-                             "https://covid19.csd.auth.gr/?tab=datatable")),
-              tags$li(tags$b("Epidemic Plots:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=epidemic",
-                             "https://covid19.csd.auth.gr/?tab=epidemic")),
-              tags$li(tags$b("Socioeconomic Plots:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=socioeconomic",
-                             "https://covid19.csd.auth.gr/?tab=socioeconomic")),
-              tags$li(tags$b("Government Response:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=government",
-                             "https://covid19.csd.auth.gr/?tab=government")),
-              tags$li(tags$b("Greece:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=greece",
-                             "https://covid19.csd.auth.gr/?tab=greece")),
-              tags$li(tags$b("About:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/?tab=about",
-                             "https://covid19.csd.auth.gr/?tab=about")),
+              tags$li(tags$b("Ελλάδα:"),
+                      tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=greece",
+                             "https://covid19.csd.auth.gr/greece/?tab=greece")),
+              tags$li(tags$b("Δυτ. Μακεδονία:"),
+                      tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=west-macedonia",
+                             "https://covid19.csd.auth.gr/greece/?tab=west-macedonia")),
+              tags$li(tags$b("Σχετικά με την ιστοσελίδα:"),
+                      tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=about",
+                             "https://covid19.csd.auth.gr/greece/?tab=about")),
             ),
-            h3("Issues and Suggestions"),
-            "If you encounter any issue or have a suggestion to improve or add
-            new content, please create an issue with our",
-            tags$a(href = "https://github.com/Datalab-AUTH/covid19_dashboard/issues",
-                          "issue tracker at Github."),
-            h3("The Team"),
+            h3("Προτάσεις και ζητήματα"),
+            "Αν αντιμετωπίζετε το οποιοδήποτε ζήτημα ή αν έχει πρότάσεις για
+            την βελτίωση και προσθήκη νέου περιεχομένου, μπορείτε να
+            δημιουργήσετε ένα νέο ζήτημα",
+            tags$a(href = "https://github.com/Datalab-AUTH/covid19_dashboard_greece/issues",
+                   "στον ανιχνευτή ζητημάτων μας στο GitHub (Issue Tracker)."),
+            h3("Η Ομάδα"),
             tags$ul(
-              tags$li("Prof. Athena Vakali - Data and Web Science Lab director"),
-              tags$li("Vasileios Psomiadis - Post doc researcher"),
-              tags$li("George Arvanitakis - Post doc researcher"),
-              tags$li("Pavlos Sermpezis - Post doc researcher"),
-              tags$li("Ilias Dimitriadis - PhD researcher"),
-              tags$li("Stefanos Efstathiou - PhD researcher"),
-              tags$li("Dimitra Karanatsiou - PhD researcher"),
-              tags$li("Marinos Poiitis - PhD researcher"),
-              tags$li("George Vlahavas - PhD researcher"),
-              tags$li("Sofia Yfantidou - PhD researcher"),
-              tags$li("Konstantinos Georgiou - MSc student")
+              tags$li("Καθηγήτρια Αθηνά Βακάλη - Διευθύντρια του εργαστηρίου επιστήμης δεδομένων και Παγκόσμιου Ιστού"),
+              tags$li("Βασίλειος Ψωμιάδης - Μεταδιδακτορικός ερευνητής"),
+              tags$li("Γεώργιος Αρβανιτάκης - Μεταδιδακτορικός ερευνητής"),
+              tags$li("Παύλος Σερμπέζης - Μεταδιδακτορικός ερευνητής"),
+              tags$li("Ηλίας Δημητριάδης - υπ.Διδάκτορας - ερευνητής"),
+              tags$li("Στέφανος Ευσταθίου - υπ.Διδάκτορας - ερευνητής"),
+              tags$li("Δήμητρα Καρανάτσιου - υπ.Διδάκτορας - ερευνητής"),
+              tags$li("Μαρίνος Ποιητής - υπ.Διδάκτορας - ερευνητής"),
+              tags$li("Γιώργος Βλαχάβας - υπ.Διδάκτορας - ερευνητής"),
+              tags$li("Σοφία Υφαντίδου - υπ.Διδάκτορας - ερευνητής"),
+              tags$li("Κωνσταντίνος Γεωργίου - Μεταπτυχιακός φοιτητής")
             ),
-            h3("Licencing"),
-            "The creators of this initiative are strong advocates of open-source
-            culture and its fundamental benefits for open scientific research.
-            This effort utilizes open datasets and is based on open-source
-            technologies. This project is released to the public under an",
+            h3("Αδειοδότηση"),
+            "Οι δημιουργοί της συγκεκριμένης πρωτοβουλίας είναι υπέρμαχοι της
+            νοοτροπίας ανοιχτού κώδικα και πηγών δεδομένων καθώς και
+            των θεμελιωδών οφελών του στην ανοιχτή επιστημονική έρευνα.
+            Αυτή η προσπάθεια χρησιμοποιεί ανοιχτά σύνολα δεδομένων, βασίζεται
+            σε τεχνολογίες ανοιχτού κώδικα και κυκλοφορεί στο κοινό με άδεια
+            πνευματικών δικαιωμάτων",
             tags$a(href = "https://en.wikipedia.org/wiki/MIT_License",
                    "MIT license."),
-            "You may find all relevant source code in our project page at",
-            tags$a(href = "https://github.com/Datalab-AUTH/covid19_dashboard",
+            "Μπορείτε να βρείτε όλο τον σχετικό πηγαίο κώδικα στη σελίδα του
+            έργου μας στο",
+            tags$a(href = "https://github.com/Datalab-AUTH/covid19_dashboard_greece/",
                    "Github."),
             width = 12,
             style = "padding-left: 20px; padding-right: 20px; padding-bottom: 40px; margin-top: -15px;"
@@ -132,7 +117,7 @@ body_about <- dashboardBody(
 )
 
 page_about <- dashboardPage(
-  title   = "About",
+  title   = "Σχετικά με την ιστοσελίδα",
   header  = dashboardHeader(disable = TRUE),
   sidebar = dashboardSidebar(disable = TRUE),
   body    = body_about
