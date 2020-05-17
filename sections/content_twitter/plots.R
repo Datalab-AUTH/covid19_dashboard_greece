@@ -18,7 +18,7 @@ output$twitter_hashtags_per_day <- renderWordcloud2({
 
 output$twitter_tweets_per_day <- renderPlotly({
   p <- plot_ly(
-    data = data_date_tweets,
+    data = data_twitter_date_tweets,
     x = ~date,
     y = ~tweets,
     type = 'scatter',
@@ -51,3 +51,7 @@ output$twitter_tweets_per_day <- renderPlotly({
   )
   return(p)
 })
+
+output$twitter_links_total <- renderText(
+  data_twitter_links_total
+)
