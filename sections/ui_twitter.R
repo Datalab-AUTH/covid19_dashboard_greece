@@ -1,5 +1,6 @@
 body_twitter <- dashboardBody(
   tags$head(
+    # don't display the hover box in wordclouds
     tags$style(HTML('div#wcLabel {display: none;}')),
   ),
   fluidRow(
