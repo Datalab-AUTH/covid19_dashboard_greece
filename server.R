@@ -36,6 +36,17 @@ server <- function(input, output, session) {
     )
   })
   
+  # Twitter
+  observe({
+    updateSliderInput(
+      session,
+      "timeslider_twitter_hashtags",
+      max = max(data_twitter_hashtags$date),
+      value = max(data_twitter_hashtags$date)
+    )
+  })
+  
+  
   # URL Queries
   observe({
     query <- parseQueryString(session$clientData$url_search)
