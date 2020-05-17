@@ -34,7 +34,6 @@ map_west_macedonia <- leaflet(addLabel_west_macedonia(data_west_macedonia_hospit
   hideGroup("Νοσηλευόμενοι (θετικοί)") %>%
   hideGroup("Νοσηλευόμενοι (αρνητικοί)") %>%
   hideGroup("Νοσηλευόμενοι σε αναμονή αποτελεσμάτων") %>%
-  hideGroup("Σε κατ'οίκον περιορισμό") %>%
   hideGroup("Έλεγχοι δειγμάτων") %>%
   hideGroup("Εξιτήρια") %>%
   addEasyButton(easyButton(
