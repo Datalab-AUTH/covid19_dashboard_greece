@@ -48,3 +48,4 @@ data/*.RDS
 
 # twitter
 twitter/venv
+data/twitter/*.csv
