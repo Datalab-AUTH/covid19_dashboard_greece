@@ -24,7 +24,8 @@ updateData <- function() {
   data_west_macedonia_total <<- readRDS("data/data_west_macedonia_total.RDS")
   data_twitter_hashtags <<- readRDS("data/data_twitter_hashtags.RDS")
   data_twitter_hashtags_total <<- readRDS("data/data_twitter_hashtags_total.RDS")
-  data_date_tweets <<- readRDS("data/data_date_tweets.RDS")
+  data_twitter_date_tweets <<- readRDS("data/data_twitter_date_tweets.RDS")
+  data_twitter_links_total <<- readRDS("data/data_twitter_links_total.RDS")
 }
 
 updateData()
