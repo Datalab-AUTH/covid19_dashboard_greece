@@ -211,4 +211,31 @@ if (data_west_macedonia["status_code"] == 200) {
   saveRDS(hospitals, file = "data/data_west_macedonia_hospitals.RDS")
   saveRDS(total, file = "data/data_west_macedonia_total.RDS")
 }
-  
+
+#
+# Twitter
+#
+twitter_hashtags <- read_csv("data/twitter/dateTags.csv") %>%
+  select(-total) %>%
+  melt() %>%
+  group_by(variable) %>%
+  arrange(variable, -value) %>%
+  rename(
+    "date" = "variable",
+    "number" = "value"
+  ) %>%
+  top_n(100) %>%
+  ungroup() %>%
+  mutate(date = as.Date(date, format="%Y-%m-%d"))
+saveRDS(twitter_hashtags, file = "data/data_twitter_hashtags.RDS")
+twitter_hashtags_total <- read_csv("data/twitter/dateTags.csv") %>%
+  select(Hashtags, total) %>%
+  arrange(-total) %>%
+  head(100)
+saveRDS(twitter_hashtags_total, file = "data/data_twitter_hashtags_total.RDS")
+data_date_tweets <- read_csv("data/twitter/dateTweets.csv") %>%
+  rename(
+    "date" = "Date",
+    "tweets" = "DateValue"
+  )
+saveRDS(data_date_tweets, file = "data/data_date_tweets.RDS")
