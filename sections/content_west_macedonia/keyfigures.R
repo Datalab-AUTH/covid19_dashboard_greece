@@ -156,3 +156,71 @@ output$box_keyFigures_west_macedonia <- renderUI(box(
       ),
   width = 12
 ))
+
+
+#
+# West Macedonia Deaths
+#
+
+output$valueBox_west_macedonia_deaths_sum <- renderValueBox({
+  valueBox(
+    nrow(data_west_macedonia_deaths),
+    subtitle = "θάνατοι συνολικά",
+    icon     = icon("skull"),
+    color    = "light-blue"
+  )
+})
+
+output$valueBox_west_macedonia_deaths_age <- renderValueBox({
+  valueBox(
+    paste(
+      round(mean(data_west_macedonia_deaths$age, na.RM = TRUE), 0),
+      "έτη"
+    ),
+    subtitle = "μέση ηλικία θανάτων",
+    icon     = icon("user"),
+    color    = "light-blue"
+  )
+})
+
+output$valueBox_west_macedonia_days_since_last_death <- renderValueBox({
+  days = as.Date(current_date, "%m/%d/%y") - as.Date(max(data_west_macedonia_deaths$date))
+  valueBox(
+    paste(
+      days,
+      "ημέρες"
+    ),
+    subtitle = "από τον τελευταίο θάνατο",
+    icon     = icon("calendar-times"),
+    color    = "light-blue"
+  )
+})
+
+output$valueBox_west_macedonia_underlying_disease <- renderValueBox({
+  pct <- round(100 * table(data_west_macedonia_deaths$underlying_diseases)["yes"] / sum(table(data_west_macedonia_deaths$underlying_diseases)), 0)
+  valueBox(
+    paste(
+      pct,
+      "%"
+    ),
+    subtitle = "των θανόντων είχε υποκείμενο νόσημα",
+    icon     = icon("percent"),
+    color    = "light-blue"
+  )
+})
+
+output$box_keyFigures_west_macedonia_deaths <- renderUI(box(
+  title = "Βασικά στοιχεία σχετικά με τους θανάτους λόγω του COVID-19 στη Δυτ. Μακεδονία",
+  fluidRow(
+    column(
+      valueBoxOutput("valueBox_west_macedonia_deaths_sum", width = 3),
+      valueBoxOutput("valueBox_west_macedonia_deaths_age", width = 3),
+      valueBoxOutput("valueBox_west_macedonia_underlying_disease", width = 3),
+      valueBoxOutput("valueBox_west_macedonia_days_since_last_death", width = 3),
+      width = 12,
+      style = "margin-left: -20px"
+    )
+  ),
+  width = 12
+))
+

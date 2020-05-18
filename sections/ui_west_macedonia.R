@@ -146,6 +146,43 @@ body_west_macedonia <- dashboardBody(
         ),
         width = 6
       )
+    ),
+    fluidRow(
+      uiOutput("box_keyFigures_west_macedonia_deaths")
+    ),
+    fluidRow(
+      box(
+        title = "Κατανομή θανάτων ανά φύλο",
+        plotlyOutput("deaths_age_west_macedonia"),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("deaths_age_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
+        title = "Ηλικιακή κατανομή θανάτων",
+        plotlyOutput("deaths_histogram_west_macedonia"),
+        width = 6,
+        column(
+          uiOutput("select_west_macedonia_deaths_histogram_variable"),
+          width = 3
+        ),
+      ),
+      box(
+        column(
+          uiOutput("deaths_histogram_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
     )
   ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),

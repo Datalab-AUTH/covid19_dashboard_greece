@@ -178,3 +178,80 @@ output$discharges_by_hospital_west_macedonia <- renderPlotly({
   )
   return (p)
 })
+
+output$select_west_macedonia_deaths_histogram_variable <- renderUI({
+  selectizeInput(
+    "select_west_macedonia_deaths_histogram_variable",
+    label    = "Επιλογή φύλου",
+    choices  = list("Και τα δύο" = "all",
+                    "Άνδρες" = "Άνδρες",
+                    "Γυναίκες" = "Γυναίκες"),
+    multiple = FALSE
+  )
+})
+
+output$deaths_histogram_west_macedonia <- renderPlotly({
+  req(input$select_west_macedonia_deaths_histogram_variable)
+
+  if (input$select_west_macedonia_deaths_histogram_variable == "all") {
+    data <- data_west_macedonia_deaths
+    bar_color <- "#7570b3"
+  } else if (input$select_west_macedonia_deaths_histogram_variable == "Άνδρες") {
+    data <- data_west_macedonia_deaths %>%
+      filter(sex == "Άνδρες")
+    bar_color <- "#d95f02"
+  } else {
+    data <- data_west_macedonia_deaths %>%
+      filter(sex == "Γυναίκες")
+    bar_color <- "#1b9e77"
+  }
+
+  p <- plot_ly(data = data, x = ~age, type = "histogram", marker = list(color = bar_color)) %>%
+    layout(
+      yaxis = list(title = "Αριθμός θανάτων"),
+      xaxis = list(
+        title = "Ηλικία"
+      )
+  )
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return (p)
+})
+
+output$deaths_age_west_macedonia <- renderPlotly({
+  data <- data_west_macedonia_deaths %>%
+    select(sex) %>%
+    table() %>%
+    as_tibble()
+  p <- plot_ly(data = data, labels = ~., values = ~n, type = 'pie')
+  
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return(p)
+})
