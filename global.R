@@ -21,6 +21,7 @@ updateData <- function() {
   data_greece_gender <<- readRDS("data/data_greece_gender.RDS")
   data_west_macedonia_hospitals <<- readRDS("data/data_west_macedonia_hospitals.RDS")
   data_west_macedonia_total <<- readRDS("data/data_west_macedonia_total.RDS")
+  data_west_macedonia_deaths <<- readRDS("data/data_west_macedonia_deaths.RDS")
 }
 
 updateData()

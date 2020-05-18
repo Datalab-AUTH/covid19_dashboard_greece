@@ -211,4 +211,18 @@ if (data_west_macedonia["status_code"] == 200) {
   saveRDS(hospitals, file = "data/data_west_macedonia_hospitals.RDS")
   saveRDS(total, file = "data/data_west_macedonia_total.RDS")
 }
+
+data_west_macedonia_deaths <- GET("https://covid-19-greece.herokuapp.com/western-macedonia-deaths")
+if (data_west_macedonia_deaths["status_code"] == 200) {
+  d <- data_west_macedonia_deaths %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    pluck("western-macedonia-deaths") %>%
+    select(-permanent_residence_municipality_gr) %>%
+    rename("municipality" = "permanent_residence_municipality_en")
+    as_tibble()
+    saveRDS(d, file = "data/data_west_macedonia_deaths.RDS")
+}
+  
+
   
