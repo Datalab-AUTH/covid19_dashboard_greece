@@ -184,7 +184,21 @@ body_west_macedonia <- dashboardBody(
         width = 6
       )
     ),
-    style = "padding-bottom: 80px;"
+    fluidRow(
+      box(
+        title = "Θάνατοι ανά ημέρα",
+        plotlyOutput("deaths_by_date_west_macedonia"),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("deaths_by_date_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
   ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),
   tags$style(type = 'text/css', ".nav-tabs-custom > .nav-tabs > li > a {color: #fff;}"),

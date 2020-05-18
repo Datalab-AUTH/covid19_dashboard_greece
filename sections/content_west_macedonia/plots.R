@@ -255,3 +255,35 @@ output$deaths_age_west_macedonia <- renderPlotly({
   )
   return(p)
 })
+
+output$deaths_by_date_west_macedonia <- renderPlotly({
+  data <- data_west_macedonia_deaths %>%
+    group_by(date) %>%
+    summarise(freq = n())
+  p <- plot_ly(data = data, x = ~date, y = ~freq, type = 'bar', name = "Νοσηλευόμενοι") %>%
+    layout(
+      yaxis = list(title = "Αριθμός θανάτων", rangemode = "nonnegative"),
+      xaxis = list(
+        title = "Ημερομηνία",
+        type = "date",
+        tickformat = "%d/%m/%y"
+      )
+    )
+  
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return(p)
+})

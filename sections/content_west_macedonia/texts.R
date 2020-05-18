@@ -116,3 +116,11 @@ output$deaths_age_west_macedonia_text <- renderText(
     οποίο αντιστοιχούν στο σύνολο."
   )
 )
+
+output$deaths_by_date_west_macedonia_text <- renderText(
+  paste(
+    em("Ο αριθμός των θανάτων ανά ημέρα"),
+    br(),br(),
+    "Στο γράφημα αυτό φαίνεται ο αριθμός των θανάτων ανά ημέρα.",
+  )
+)
