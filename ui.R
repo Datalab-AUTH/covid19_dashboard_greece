@@ -53,8 +53,8 @@ ui <- fluidPage(
     tabPanel(HTML("Σχετικά με την ιστοσελίδα</a></li>
                   <li>
                   <a href='https://covid19.csd.auth.gr' target='_blank' style='padding-top:10px;padding-bottom:8px'>
-                  <img src='world.png'>
-                  World"), page_about, value = "page-about"),
+                  <img src='world.png'
+                  alt='Κόσμος'>"), page_about, value = "page-about"),
     tags$script(HTML(paste0("var header = $('.navbar > .container-fluid');",
       "header.append(",
       csd_auth_logos_html,
