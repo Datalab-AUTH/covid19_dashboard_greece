@@ -224,12 +224,36 @@ twitter_hashtags <- read_csv("data/twitter/dateTags.csv") %>%
     "date" = "variable",
     "number" = "value"
   ) %>%
+  filter(Hashtags != "κορωνοιος") %>%
+  filter(Hashtags != "COVID19greece") %>%
+  filter(Hashtags != "covid19greece") %>%
+  filter(Hashtags != "μενουμε_σπιτι") %>%
+  filter(Hashtags != "μενουμεσπιτι") %>%
+  filter(Hashtags != "κορονα") %>%
+  filter(Hashtags != "κορονοϊος") %>%
+  filter(Hashtags != "καραντινα") %>%
+  filter(Hashtags != "εοδυ") %>%
+  filter(Hashtags != "eody") %>%
+  filter(Hashtags != "απαγορευση_κυκλοφοριας") %>%
+  filter(Hashtags != "απαγορευσηκυκλοφοριας") %>%
   top_n(100) %>%
   ungroup() %>%
   mutate(date = as.Date(date, format="%Y-%m-%d"))
 saveRDS(twitter_hashtags, file = "data/data_twitter_hashtags.RDS")
 twitter_hashtags_total <- read_csv("data/twitter/dateTags.csv") %>%
   select(Hashtags, total) %>%
+  filter(Hashtags != "κορωνοιος") %>%
+  filter(Hashtags != "COVID19greece") %>%
+  filter(Hashtags != "covid19greece") %>%
+  filter(Hashtags != "μενουμε_σπιτι") %>%
+  filter(Hashtags != "μενουμεσπιτι") %>%
+  filter(Hashtags != "κορονα") %>%
+  filter(Hashtags != "κορονοϊος") %>%
+  filter(Hashtags != "καραντινα") %>%
+  filter(Hashtags != "εοδυ") %>%
+  filter(Hashtags != "eody") %>%
+  filter(Hashtags != "απαγορευση_κυκλοφοριας") %>%
+  filter(Hashtags != "απαγορευσηκυκλοφοριας") %>%
   arrange(-total) %>%
   head(100)
 saveRDS(twitter_hashtags_total, file = "data/data_twitter_hashtags_total.RDS")
