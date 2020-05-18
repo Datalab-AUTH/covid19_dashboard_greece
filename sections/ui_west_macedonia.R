@@ -183,7 +183,8 @@ body_west_macedonia <- dashboardBody(
         ),
         width = 6
       )
-    )
+    ),
+    style = "padding-bottom: 80px;"
   ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),
   tags$style(type = 'text/css', ".nav-tabs-custom > .nav-tabs > li > a {color: #fff;}"),
