@@ -17,21 +17,6 @@ body_twitter <- dashboardBody(
       ),
       fluidRow(
         box(
-          title = "Δημοφιλή hashtags",
-          wordcloud2Output("twitter_hashtags"),
-          width = 6
-        ),
-        box(
-          column(
-            uiOutput("twitter_hashtags_text"),
-            width = 12,
-            style = "padding: 50px;"
-          ),
-          width = 6
-        )
-      ),
-      fluidRow(
-        box(
           title = "Hashtags ανά ημέρα",
           column(
             wordcloud2Output("twitter_hashtags_per_day"),
@@ -57,6 +42,21 @@ body_twitter <- dashboardBody(
         box(
           column(
             uiOutput("twitter_hashtags_per_day_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
+      ),
+      fluidRow(
+        box(
+          title = "Δημοφιλή hashtags",
+          wordcloud2Output("twitter_hashtags"),
+          width = 6
+        ),
+        box(
+          column(
+            uiOutput("twitter_hashtags_text"),
             width = 12,
             style = "padding: 50px;"
           ),
