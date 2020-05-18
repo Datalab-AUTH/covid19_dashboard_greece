@@ -206,7 +206,13 @@ output$deaths_histogram_west_macedonia <- renderPlotly({
     bar_color <- "#1b9e77"
   }
 
-  p <- plot_ly(data = data, x = ~age, type = "histogram", marker = list(color = bar_color)) %>%
+  p <- plot_ly(
+      data = data,
+      x = ~age,
+      type = "histogram",
+      marker = list(color = bar_color),
+      xbins = list(size = 5)
+    ) %>%
     layout(
       yaxis = list(title = "Αριθμός θανάτων"),
       xaxis = list(
@@ -269,6 +275,50 @@ output$deaths_by_date_west_macedonia <- renderPlotly({
         tickformat = "%d/%m/%y"
       )
     )
+  
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return(p)
+})
+
+output$deaths_by_municipality_west_macedonia <- renderPlotly({
+  data <- data_west_macedonia_deaths %>%
+    group_by(municipality, sex) %>%
+    summarise(freq = n()) %>%
+    spread(sex, freq) %>%
+    arrange(municipality)
+  p <- plot_ly(
+    data,
+    x = ~`Άνδρες`,
+    y = ~municipality,
+    type = 'bar',
+    orientation = 'h',
+    name = 'Άνδρες'
+  ) %>%
+  add_trace(
+    data,
+    x = ~`Γυναίκες`,
+    y = ~municipality,
+    name = 'Γυναίκες'
+  ) %>%
+  layout(
+    barmode = "stack",
+    yaxis = list(title = "Δήμος"),
+    xaxis = list(title = "Αριθμός θανάτων")
+  )
   
   p <- layout(p,
               font = list(color = "#FFFFFF"),
