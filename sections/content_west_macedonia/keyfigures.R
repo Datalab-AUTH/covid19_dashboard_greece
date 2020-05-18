@@ -177,7 +177,7 @@ output$valueBox_west_macedonia_deaths_age <- renderValueBox({
       round(mean(data_west_macedonia_deaths$age, na.RM = TRUE), 0),
       "έτη"
     ),
-    subtitle = "μέση ηλικία θανάτων",
+    subtitle = "μέση ηλικία θανόντων",
     icon     = icon("user"),
     color    = "light-blue"
   )
