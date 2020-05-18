@@ -219,10 +219,119 @@ if (data_west_macedonia_deaths["status_code"] == 200) {
     fromJSON() %>%
     pluck("western-macedonia-deaths") %>%
     select(-permanent_residence_municipality_gr) %>%
-    rename("municipality" = "permanent_residence_municipality_en")
+    rename("municipality" = "permanent_residence_municipality_en") %>%
+    mutate(municipality = recode(municipality, 
+                                 "dimos_grevenon" = "Γρεβενών",
+                                 "dimos_deskatis" = "Δεσκάτης",
+                                 "dimos_kastorias" = "Καστοριάς",
+                                 "dimos_nestoriou" = "Νεστορίου",
+                                 "dimos_orestidos" = "Ορεστίδος",
+                                 "dimos_voiou" = "Βοΐου",
+                                 "dimos_eordaias" = "Εορδαίας",
+                                 "dimos_kozanis" = "Κοζάνης",
+                                 "dimos_servion" = "Σερβίων",
+                                 "dimos_velventou" = "Βελβεντού",
+                                 "dimos_amintaiou" = "Αμυνταίου",
+                                 "dimos_prespon" = "Πρεσπών",
+                                 "dimos_florinas" = "Φλώρινας"
+                          ),
+           sex = recode(sex,
+                        "male" = "Άνδρες",
+                        "female" = "Γυναίκες"
+                        )
+    ) %>%
     as_tibble()
     saveRDS(d, file = "data/data_west_macedonia_deaths.RDS")
 }
   
+#
+# Twitter
+#
+twitter_hashtags <- read_csv("data/twitter/dateTags.csv") %>%
+  select(-total) %>%
+  melt() %>%
+  group_by(variable) %>%
+  arrange(variable, -value) %>%
+  rename(
+    "date" = "variable",
+    "number" = "value"
+  ) %>%
+  filter(Hashtags != "κορωνοιος") %>%
+  filter(Hashtags != "COVID19greece") %>%
+  filter(Hashtags != "covid19greece") %>%
+  filter(Hashtags != "μενουμε_σπιτι") %>%
+  filter(Hashtags != "μενουμεσπιτι") %>%
+  filter(Hashtags != "κορονα") %>%
+  filter(Hashtags != "κορονοϊος") %>%
+  filter(Hashtags != "καραντινα") %>%
+  filter(Hashtags != "εοδυ") %>%
+  filter(Hashtags != "eody") %>%
+  filter(Hashtags != "απαγορευση_κυκλοφοριας") %>%
+  filter(Hashtags != "απαγορευσηκυκλοφοριας") %>%
+  top_n(100) %>%
+  ungroup() %>%
+  mutate(date = as.Date(date, format="%Y-%m-%d"))
+saveRDS(twitter_hashtags, file = "data/data_twitter_hashtags.RDS")
+twitter_hashtags_total <- read_csv("data/twitter/dateTags.csv") %>%
+  select(Hashtags, total) %>%
+  filter(Hashtags != "κορωνοιος") %>%
+  filter(Hashtags != "COVID19greece") %>%
+  filter(Hashtags != "covid19greece") %>%
+  filter(Hashtags != "μενουμε_σπιτι") %>%
+  filter(Hashtags != "μενουμεσπιτι") %>%
+  filter(Hashtags != "κορονα") %>%
+  filter(Hashtags != "κορονοϊος") %>%
+  filter(Hashtags != "καραντινα") %>%
+  filter(Hashtags != "εοδυ") %>%
+  filter(Hashtags != "eody") %>%
+  filter(Hashtags != "απαγορευση_κυκλοφοριας") %>%
+  filter(Hashtags != "απαγορευσηκυκλοφοριας") %>%
+  arrange(-total) %>%
+  head(100)
+saveRDS(twitter_hashtags_total, file = "data/data_twitter_hashtags_total.RDS")
+data_twitter_date_tweets <- read_csv("data/twitter/dateTweets.csv") %>%
+  rename(
+    "date" = "Date",
+    "tweets" = "DateValue"
+  )
+saveRDS(data_date_tweets, file = "data/data_twitter_date_tweets.RDS")
 
-  
+# function that transforms the links dataframe to an HTML numbered list
+twitter_links_to_html <- function(d) {
+  s <- "<ol>"
+  for (row in 1:nrow(d)) {
+    URL <- d[row, 1]
+    number <- d[row, 2]
+    title <- d[row, 3]
+    shortURL <- d[row, 4]
+    if (grepl("Î", title) || grepl("Ï", title)) {
+      title <- shortURL
+    }
+    if (nchar(title) > 80) {
+      title <- paste0(substr(title, 1, 80), "...")
+    }
+    if (row == 1) {
+      font_size <- "xx-large"
+    } else if (row == 2) {
+      font_size <- "x-large"
+    } else if (row == 3) {
+      font_size <- "large"
+    } else {
+      font_size <- "medium"
+    }
+    s <- paste0(s, "<div style='font-size: ", font_size, "'><li><a href='", URL, "'>", title, "</a> (", shortURL, "). <em>", number, " αναφορές</em></li></div>")
+  }
+  s <- paste0(s, "</ol>")
+  return(s)
+}
+data_twitter_links_total <- read_csv("data/twitter/links_total.csv") %>%
+  rename("URL" = "Urls") %>%
+  mutate(
+    total = as.integer(total),
+    shortURL = gsub("https://", "", URL),
+    shortURL = gsub("http://", "", shortURL),
+    shortURL = tolower(gsub("()/.*", "\\1", shortURL))
+  ) %>%
+  arrange(-total) %>%
+  twitter_links_to_html()
+saveRDS(data_twitter_links_total, file = "data/data_twitter_links_total.RDS")

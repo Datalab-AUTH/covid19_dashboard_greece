@@ -46,3 +46,6 @@ covid19_dashboard.iml
 # data
 data/*.RDS
 
+# twitter
+twitter/venv
+data/twitter/*.csv

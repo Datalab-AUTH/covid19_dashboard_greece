@@ -3,6 +3,7 @@ library(shinythemes)
 source("sections/ui_about.R", local = TRUE)
 source("sections/ui_greece.R", local = TRUE)
 source("sections/ui_west_macedonia.R", local = TRUE)
+source("sections/ui_twitter.R", local = TRUE)
 
 datalab_logo_html <- '<div style="float:left">
                        <a href="https://datalab.csd.auth.gr/">
@@ -50,6 +51,8 @@ ui <- fluidPage(
     fluid       = TRUE,
     tabPanel("Ελλάδα", page_greece, value = "page-greece"),
     tabPanel("Δυτ. Μακεδονία", page_west_macedonia, value = "page-west-macedonia"),
+    tabPanel("Twitter", page_twitter, value = "page-twitter"),
+    
     tabPanel(HTML("Σχετικά με την ιστοσελίδα</a></li>
                   <li>
                   <a href='https://covid19.csd.auth.gr' target='_blank' style='padding-top:10px;padding-bottom:8px'>
