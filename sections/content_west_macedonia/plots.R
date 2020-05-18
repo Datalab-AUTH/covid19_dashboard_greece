@@ -262,6 +262,32 @@ output$deaths_age_west_macedonia <- renderPlotly({
   return(p)
 })
 
+output$deaths_age_boxplot_west_macedonia <- renderPlotly({
+  data <- data_west_macedonia_deaths
+  p <- plot_ly(data = data, y = ~age, color = ~sex, type = 'box') %>%
+    layout(
+      xaxis = list(title = "Φύλο"),
+      yaxis = list(title = "Ηλικία")
+    )
+  
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return(p)
+})
+
 output$deaths_by_date_west_macedonia <- renderPlotly({
   data <- data_west_macedonia_deaths %>%
     group_by(date) %>%

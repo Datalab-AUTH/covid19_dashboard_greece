@@ -186,6 +186,21 @@ body_west_macedonia <- dashboardBody(
     ),
     fluidRow(
       box(
+        title = "Ηλικιακή κατανομή θανάτων",
+        plotlyOutput("deaths_age_boxplot_west_macedonia"),
+        width = 6,
+      ),
+      box(
+        column(
+          uiOutput("deaths_age_boxplot_west_macedonia_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
         title = "Θάνατοι ανά ημέρα",
         plotlyOutput("deaths_by_date_west_macedonia"),
         width = 6
