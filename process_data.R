@@ -294,7 +294,7 @@ data_twitter_date_tweets <- read_csv("data/twitter/dateTweets.csv") %>%
     "date" = "Date",
     "tweets" = "DateValue"
   )
-saveRDS(data_date_tweets, file = "data/data_twitter_date_tweets.RDS")
+saveRDS(data_twitter_date_tweets, file = "data/data_twitter_date_tweets.RDS")
 
 # function that transforms the links dataframe to an HTML numbered list
 twitter_links_to_html <- function(d) {
