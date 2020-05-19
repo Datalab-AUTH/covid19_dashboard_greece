@@ -167,7 +167,7 @@ body_west_macedonia <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Ηλικιακή κατανομή θανάτων",
+        title = "Ηλικιακή κατανομή θανάτων (ιστόγραμμα)",
         plotlyOutput("deaths_histogram_west_macedonia"),
         width = 6,
         column(
@@ -186,7 +186,7 @@ body_west_macedonia <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Ηλικιακή κατανομή θανάτων",
+        title = "Ηλικιακή κατανομή θανάτων (θηκόγραμμα)",
         plotlyOutput("deaths_age_boxplot_west_macedonia"),
         width = 6,
       ),
