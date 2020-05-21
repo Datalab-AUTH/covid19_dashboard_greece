@@ -54,7 +54,7 @@ observe({
       addCircleMarkers(
         lng          = ~Long,
         lat          = ~Lat,
-        radius       = ~log((1.1 * hospitalized_current)^(zoomLevel * 1.5)),
+        radius       = ~log((1.6 * hospitalized_current)^(zoomLevel * 1.2)),
         stroke       = FALSE,
         color        = "#386cb0",
         fillOpacity  = 0.5,
