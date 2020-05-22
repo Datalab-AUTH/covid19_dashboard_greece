@@ -109,7 +109,7 @@ if (data_greece_region_timeline["status_code"] == 200) {
     mutate(confirmed_new = confirmed - lag(confirmed, 1)) %>%
     mutate(
       confirmedPerCapita = round(100000 * confirmed / population, 2),
-      confirmedPerCapita_new = round(100000 * confirmed_new / population, 2),
+      confirmedPerCapita_new = round(100000 * confirmed_new / population, 2)
     ) %>%
     as_tibble()
   saveRDS(timeline, "data/data_greece_region_timeline.RDS")
