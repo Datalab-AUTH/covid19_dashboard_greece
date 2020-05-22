@@ -177,7 +177,18 @@ if (data_west_macedonia["status_code"] == 200) {
     as_tibble() %>%
     group_by(hospital_name, variable) %>%
     arrange(hospital_name, variable, date) %>%
-    spread(variable, value)
+    spread(variable, value) %>%
+    replace_na(
+      list(
+        home_restriction_current = 0,
+        hospitalized_current = 0,
+        hospitalized_positive = 0,
+        hospitalized_negative = 0,
+        hospitalized_pending_result = 0,
+        new_recoveries = 0,
+        new_samples = 0
+      )
+    )
   hospitals_summed <- hospitals %>%
     group_by(date) %>%
     summarise(
