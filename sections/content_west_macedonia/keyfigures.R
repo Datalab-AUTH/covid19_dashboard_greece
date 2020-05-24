@@ -27,6 +27,20 @@ key_figures_west_macedonia <- reactive({
     "hospital"  = HTML(paste(format(data$hospitalized_current, big.mark = " "), sprintf("<h4>(%+.1f %%)</h4>", data_new$new_home))),
     "date"      = data$date
   )
+
+  if (is.infinite(data_new$new_active)) keyFigures$active = HTML(paste(format(data$active, big.mark = " "), "<h4>(όλα νέα)</h4>"))
+  if (is.infinite(data_new$new_icu)) keyFigures$icu = HTML(paste(format(data$icu, big.mark = " "), "<h4>(όλοι νέοι)</h4>"))
+  if (is.infinite(data_new$new_home)) keyFigures$home = HTML(paste(format(data$home_restriction_current, big.mark = " "), "<h4>(όλοι νέοι)</h4>"))
+  if (is.infinite(data_new$new_hospital)) keyFigures$hospital = HTML(paste(format(data$hospitalized_current, big.mark = " "), "<h4>(όλοι νέοι)</h4>"))
+  if (data_new$new_confirmed == 0) keyFigures$confirmed = HTML(paste(format(data$confirmed, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (is.nan(data_new$new_active) || data_new$new_active == 0) keyFigures$active = HTML(paste(format(data$active, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (data_new$new_recovered == 0) keyFigures$recovered = HTML(paste(format(data$new_recoveries, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (data_new$new_deaths == 0) keyFigures$deceased = HTML(paste(format(data$deaths, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (is.nan(data_new$new_icu) || data_new$new_icu == 0) keyFigures$icu = HTML(paste(format(data$icu, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (data_new$new_tests == 0) keyFigures$tests = HTML(paste(format(data$tests_new, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (is.nan(data_new$new_home) || data_new$new_tests == 0) keyFigures$home = HTML(paste(format(data$home_restriction_current, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (is.nan(data_new$new_hospital) || data_new$new_hospital == 0) keyFigures$hospital = HTML(paste(format(data$hospitalized_current, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+
   return(keyFigures)
 })
 
