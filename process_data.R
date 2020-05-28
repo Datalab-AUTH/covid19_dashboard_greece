@@ -280,6 +280,7 @@ twitter_hashtags <- read_csv("data/twitter/dateTags.csv") %>%
   filter(Hashtags != "απαγορευση_κυκλοφοριας") %>%
   filter(Hashtags != "απαγορευσηκυκλοφοριας") %>%
   top_n(100) %>%
+  filter(number > 0) %>%
   ungroup() %>%
   mutate(date = as.Date(date, format="%Y-%m-%d"))
 saveRDS(twitter_hashtags, file = "data/data_twitter_hashtags.RDS")
