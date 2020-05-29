@@ -67,7 +67,7 @@ body_about <- dashboardBody(
               tags$li(tags$b("Δυτ. Μακεδονία:"),
                       tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=west-macedonia",
                              "https://covid19.csd.auth.gr/greece/?tab=west-macedonia")),
-              tags$li(tags$b("Twitter"),
+              tags$li(tags$b("Twitter:"),
                       tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=twitter",
                              "https://covid19.csd.auth.gr/greece/?tab=twitter")),
               tags$li(tags$b("Σχετικά με την ιστοσελίδα:"),
