@@ -57,7 +57,7 @@ output$valueBox_west_macedonia_confirmed <- renderValueBox({
 output$valueBox_west_macedonia_active <- renderValueBox({
   valueBox(
     key_figures_west_macedonia()$active,
-    subtitle = "Ενεργά κρούσματα",
+    subtitle = "Ενεργά και ύποπτα κρούσματα",
     icon     = icon("stethoscope"),
     color    = "light-blue",
     width    = NULL
