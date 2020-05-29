@@ -344,6 +344,12 @@ data_twitter_links_total <- read_csv("data/twitter/links_total.csv") %>%
     shortURL = gsub("http://", "", shortURL),
     shortURL = tolower(gsub("()/.*", "\\1", shortURL))
   ) %>%
+  filter(URL != "http://naftemporiki.gr") %>%
+  filter(URL != "http://WWW.10DECO.GR") %>%
+  filter(URL != "http://MyVolos.Net") %>%
+  filter(URL != "http://Libre.gr") %>%
+  filter(URL != "http://Psts.gr") %>%
   arrange(-total) %>%
+  top_n(10) %>%
   twitter_links_to_html()
 saveRDS(data_twitter_links_total, file = "data/data_twitter_links_total.RDS")
