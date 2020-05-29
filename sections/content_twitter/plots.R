@@ -7,8 +7,16 @@ output$twitter_hashtags <- renderWordcloud2({
 })
 
 output$twitter_hashtags_per_day <- renderWordcloud2({
-  w <- data_twitter_hashtags %>%
-    filter(date == input$timeslider_twitter_hashtags) %>%
+  selected_date <- input$timeslider_twitter_hashtags
+  repeat {
+    selected_data <- data_twitter_hashtags %>%
+      filter(date == selected_date)
+    if (n_distinct(selected_data) > 0) {
+      break
+    }
+    selected_date = as.Date(selected_date, format = "%Y-%m-%d") - 1 
+  }
+  w <- selected_data %>%
     select(-date) %>%
     wordcloud2a(fontFamily = "Arial",
                 color = "random-light",
