@@ -38,7 +38,7 @@ key_figures_west_macedonia <- reactive({
   if (data_new$new_deaths == 0) keyFigures$deceased = HTML(paste(format(data$deaths, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
   if (is.nan(data_new$new_icu) || data_new$new_icu == 0) keyFigures$icu = HTML(paste(format(data$icu, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
   if (data_new$new_tests == 0) keyFigures$tests = HTML(paste(format(data$tests_new, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
-  if (is.nan(data_new$new_home) || data_new$new_tests == 0) keyFigures$home = HTML(paste(format(data$home_restriction_current, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
+  if (is.nan(data_new$new_home) || data_new$new_home == 0) keyFigures$home = HTML(paste(format(data$home_restriction_current, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
   if (is.nan(data_new$new_hospital) || data_new$new_hospital == 0) keyFigures$hospital = HTML(paste(format(data$hospitalized_current, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
 
   return(keyFigures)
