@@ -25,11 +25,11 @@ map_greece <- leaflet(addLabel_greece(data_greece_region)) %>%
   setView(23, 38, zoom = 6) %>%
   addProviderTiles(providers$CartoDB.DarkMatter, group = "Dark") %>%
   addLayersControl(
-    overlayGroups = c("Confirmed",
-                      "Confirmed / 100,000 people",
-                      "New Confirmed")
+    overlayGroups = c("Επιβεβαιωμένα κρούσματα",
+                      "Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους",
+                      "Νέα κρούσματα")
   ) %>%
-  hideGroup("Confirmed / 100,000 people") %>%
+  hideGroup("Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους") %>%
   addEasyButton(easyButton(
     icon    = "glyphicon glyphicon-globe", title = "Reset zoom",
     onClick = JS("function(btn, map){ map.setView([38, 23], 6); }")))
@@ -54,7 +54,7 @@ observe({
         fillOpacity  = 0.5,
         label        = ~label,
         labelOptions = labelOptions(textsize = 15),
-        group        = "Confirmed"
+        group        = "Επιβεβαιωμένα κρούσματα"
       ) %>%
       addCircleMarkers(
         lng          = ~Long,
@@ -65,7 +65,7 @@ observe({
         fillOpacity  = 0.5,
         label        = ~label,
         labelOptions = labelOptions(textsize = 15),
-        group        = "Confirmed / 100,000 people"
+        group        = "Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους"
       ) %>%
       addCircleMarkers(
         lng          = ~Long,
@@ -76,7 +76,7 @@ observe({
         fillOpacity  = 0.5,
         label        = ~label,
         labelOptions = labelOptions(textsize = 15),
-        group = "New Confirmed"
+        group = "Νέα κρούσματα"
       )
   } else {
     leafletProxy("overview_map_greece", data = data) %>%
