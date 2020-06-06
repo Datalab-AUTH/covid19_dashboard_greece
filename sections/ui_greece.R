@@ -22,21 +22,21 @@ body_greece <- dashboardBody(
   ),
   fluidRow(
     fluidRow(
-      uiOutput("box_keyFigures_greece")
+      withSpinner(uiOutput("box_keyFigures_greece"))
     ),
     fluidRow(
       class = "details",
       column(
         box(
           width = 12,
-          leafletOutput("overview_map_greece")
+          withSpinner(leafletOutput("overview_map_greece"))
         ),
         class = "map",
         width = 6,
         style = 'padding:0px;'
       ),
       column(
-        uiOutput("summary_table_greece"),
+        withSpinner(uiOutput("summary_table_greece")),
         class = "summary",
         width = 6,
         style = 'padding:0px;'
@@ -65,7 +65,7 @@ body_greece <- dashboardBody(
     fluidRow(
       box(
         title = "Εξέλιξη των κρουσμάτων",
-        plotlyOutput("case_evolution_greece"),
+        withSpinner(plotlyOutput("case_evolution_greece")),
         column(
           checkboxInput("checkbox_logCaseEvolution_greece", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
@@ -85,7 +85,7 @@ body_greece <- dashboardBody(
     fluidRow(
       box(
         title = "Νέα κρούσματα",
-        plotlyOutput("cases_per_day_greece"),
+        withSpinner(plotlyOutput("cases_per_day_greece")),
         width = 6
       ),
       box(
@@ -100,7 +100,7 @@ body_greece <- dashboardBody(
     fluidRow(
       box(
         title = "Έλεγχοι δειγμάτων COVID-19",
-        plotlyOutput("tests_greece"),
+        withSpinner(plotlyOutput("tests_greece")),
         column(
           checkboxInput("checkbox_log_tests_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
@@ -120,7 +120,7 @@ body_greece <- dashboardBody(
     fluidRow(
       box(
         title = "Ηλικιακή κατανομή",
-        plotlyOutput("age_greece"),
+        withSpinner(plotlyOutput("age_greece")),
         column(
           uiOutput("select_age_var_greece"),
           width = 4,
@@ -144,7 +144,7 @@ body_greece <- dashboardBody(
     fluidRow(
       box(
         title = "Κατανομή φύλων",
-        plotlyOutput("gender_greece"),
+        withSpinner(plotlyOutput("gender_greece")),
         width = 6
       ),
       box(
