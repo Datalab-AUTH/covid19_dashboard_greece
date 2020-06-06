@@ -22,21 +22,21 @@ body_west_macedonia <- dashboardBody(
   ),
   fluidRow(
     fluidRow(
-      uiOutput("box_keyFigures_west_macedonia")
+      withSpinner(uiOutput("box_keyFigures_west_macedonia"))
     ),
     fluidRow(
       class = "details",
       column(
         box(
           width = 12,
-          leafletOutput("overview_map_west_macedonia")
+          withSpinner(leafletOutput("overview_map_west_macedonia"))
         ),
         class = "map",
         width = 5,
         style = 'padding:0px;'
       ),
       column(
-        uiOutput("summary_table_west_macedonia"),
+        withSpinner(uiOutput("summary_table_west_macedonia")),
         class = "summary",
         width = 7,
         style = 'padding:0px;'
@@ -60,7 +60,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Εξέλιξη των κρουσμάτων",
-        plotlyOutput("case_evolution_west_macedonia"),
+        withSpinner(plotlyOutput("case_evolution_west_macedonia")),
         column(
           checkboxInput("checkbox_logCaseEvolution_west_macedonia", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
@@ -80,7 +80,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Νοσηλευόμενοι",
-        plotlyOutput("hospitalized_west_macedonia"),
+        withSpinner(plotlyOutput("hospitalized_west_macedonia")),
         column(
           checkboxInput("checkbox_logHospitalized_west_macedonia", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
@@ -100,7 +100,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Εξιτήρια",
-        plotlyOutput("discharges_by_hospital_west_macedonia"),
+        withSpinner(plotlyOutput("discharges_by_hospital_west_macedonia")),
         width = 6
       ),
       box(
@@ -115,7 +115,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Σε κατ'οίκον περιορισμό",
-        plotlyOutput("home_restriction_west_macedonia"),
+        withSpinner(plotlyOutput("home_restriction_west_macedonia")),
         width = 6
       ),
       box(
@@ -130,7 +130,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Έλεγχοι δειγμάτων COVID-19",
-        plotlyOutput("tests_west_macedonia"),
+        withSpinner(plotlyOutput("tests_west_macedonia")),
         column(
           checkboxInput("checkbox_log_tests_west_macedonia", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
@@ -148,12 +148,12 @@ body_west_macedonia <- dashboardBody(
       )
     ),
     fluidRow(
-      uiOutput("box_keyFigures_west_macedonia_deaths")
+      withSpinner(uiOutput("box_keyFigures_west_macedonia_deaths"))
     ),
     fluidRow(
       box(
         title = "Κατανομή θανάτων ανά φύλο",
-        plotlyOutput("deaths_age_west_macedonia"),
+        withSpinner(plotlyOutput("deaths_age_west_macedonia")),
         width = 6
       ),
       box(
@@ -168,7 +168,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Ηλικιακή κατανομή θανάτων (ιστόγραμμα)",
-        plotlyOutput("deaths_histogram_west_macedonia"),
+        withSpinner(plotlyOutput("deaths_histogram_west_macedonia")),
         width = 6,
         column(
           uiOutput("select_west_macedonia_deaths_histogram_variable"),
@@ -187,7 +187,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Ηλικιακή κατανομή θανάτων (θηκόγραμμα)",
-        plotlyOutput("deaths_age_boxplot_west_macedonia"),
+        withSpinner(plotlyOutput("deaths_age_boxplot_west_macedonia")),
         width = 6,
       ),
       box(
@@ -202,7 +202,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Θάνατοι ανά ημέρα",
-        plotlyOutput("deaths_by_date_west_macedonia"),
+        withSpinner(plotlyOutput("deaths_by_date_west_macedonia")),
         width = 6
       ),
       box(
@@ -217,7 +217,7 @@ body_west_macedonia <- dashboardBody(
     fluidRow(
       box(
         title = "Θάνατοι ανά Δήμο",
-        plotlyOutput("deaths_by_municipality_west_macedonia"),
+        withSpinner(plotlyOutput("deaths_by_municipality_west_macedonia")),
         width = 6
       ),
       box(
