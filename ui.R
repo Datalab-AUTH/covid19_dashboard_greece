@@ -11,14 +11,14 @@ datalab_logo_html <- '<div style="float:left">
                        <img id="logo" src="datalab_logo.png" alt="Datalab"
                           style="float:left;width:48px;padding-top:10px;margin-top:-25px;margin-right:10px">
                        </a>
-                       <span style="font-weight: bold">CovidDEXP</span>
+                       <span style="font-weight: bold">CovidDEXP Ελλάδα</span>
                        </div>'
 
 csd_auth_logos_html <- '\'<div style="float:right"><img id="csd_auth_logos" src="csd_auth_logos.png" alt="School of Informatics, Aristotle University of Thessaloniki" usemap="#logosmap" style="float:right;margin-top:-50px;margin-right:-10px"></div><map name="logosmap"><area shape="rect" coords="63,1,108,46" alt="School of Informatics" href="https://www.csd.auth.gr"><area shape="rect" coords="124,1,169,46" alt="Aristotle University of Thessaloniki" href="https://www.auth.gr/"></map>\''
 
 ui <- fluidPage(
   theme = shinytheme("cyborg"),
-  title = "CovidDEXP - COVID-19 Data Exploration",
+  title = "CovidDEXP - Εξερεύνηση δεδομένων σχετικά με τον COVID-19 στην Ελλάδα",
   tags$head(
     tags$link(rel = "shortcut icon", type = "image/png", href = "datalab_logo.png"),
     tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Roboto&display=swap"),
@@ -50,7 +50,7 @@ ui <- fluidPage(
     id          = "navbar_set_panel",
     collapsible = TRUE,
     fluid       = TRUE,
-    tabPanel("Ελλάδα", page_greece, value = "page-greece"),
+    tabPanel("Συνοπτικά", page_greece, value = "page-greece"),
     tabPanel("Γραφήματα", page_plots, value = "page-plots"),
     tabPanel("Δυτ. Μακεδονία", page_west_macedonia, value = "page-west-macedonia"),
     tabPanel("Twitter", page_twitter, value = "page-twitter"),
