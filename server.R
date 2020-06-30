@@ -17,8 +17,8 @@ server <- function(input, output, session) {
     updateSliderInput(
       session,
       "timeslider_greece",
-      max = max(data_greece_region_timeline$date),
-      value = max(data_greece_region_timeline$date)
+      max = min(max(data_greece_region_timeline$date), max(data_greece_all$date)),
+      value = min(max(data_greece_region_timeline$date), max(data_greece_all$date))
     )
   })
   

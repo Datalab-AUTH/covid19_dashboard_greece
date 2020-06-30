@@ -46,8 +46,8 @@ body_greece <- dashboardBody(
           "timeslider_greece",
           label      = "Επιλογή ημερομηνίας",
           min        = min(data_greece_region_timeline$date),
-          max        = max(data_greece_region_timeline$date),
-          value      = max(data_greece_region_timeline$date),
+          max        = min(max(data_greece_region_timeline$date), max(data_greece_all$date)),
+          value      = min(max(data_greece_region_timeline$date), max(data_greece_all$date)),
           width      = "100%",
           timeFormat = "%d.%m.%Y",
           animate    = animationOptions(interval = 1000, loop = TRUE)

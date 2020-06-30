@@ -1,9 +1,9 @@
 
 key_figures_greece <- reactive({
   data <- data_greece_all %>%
-    slice(n())
+    filter(date == input$timeslider_greece)
   data_yesterday <- data_greece_all %>%
-    slice(n() - 1)
+    filter(date == input$timeslider_greece - 1)
   
   data_diff <- list(
     confirmed = data$confirmed - data_yesterday$confirmed,
