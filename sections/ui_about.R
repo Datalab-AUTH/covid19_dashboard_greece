@@ -61,9 +61,12 @@ body_about <- dashboardBody(
             "Μπορείτε επίσης να χρησιμοποιήσετε συνδέσμους για οποιαδήποτε από
             τις διαθέσιμες υποσελίδες:",
             tags$ul(
-              tags$li(tags$b("Ελλάδα:"),
+              tags$li(tags$b("Συνοπτικά:"),
                       tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=greece",
                              "https://covid19.csd.auth.gr/greece/?tab=greece")),
+              tags$li(tags$b("Γραφήματα:"),
+                      tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=plots",
+                             "https://covid19.csd.auth.gr/greece/?tab=plots")),
               tags$li(tags$b("Δυτ. Μακεδονία:"),
                       tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=west-macedonia",
                              "https://covid19.csd.auth.gr/greece/?tab=west-macedonia")),
