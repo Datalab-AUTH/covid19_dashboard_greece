@@ -2,10 +2,10 @@ body_plots <- dashboardBody(
   fluidRow(
     fluidRow(
       box(
-        title = "Εξέλιξη των κρουσμάτων",
-        withSpinner(plotlyOutput("case_evolution_greece")),
+        title = "Επιβεβαιωμένα κρούσματα",
+        withSpinner(plotlyOutput("confirmed_greece")),
         column(
-          checkboxInput("checkbox_logCaseEvolution_greece", label = "Άξονας Υ σε λογαριθμική κλίμακα", value = FALSE),
+          checkboxInput("checkbox_log_confirmed_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
           width = 4,
           style = "float: right; padding: 10px; margin-right: 50px"
         ),
@@ -13,7 +13,7 @@ body_plots <- dashboardBody(
       ),
       box(
         column(
-          uiOutput("case_evolution_greece_text"),
+          uiOutput("confirmed_greece_text"),
           width = 12,
           style = "padding: 50px;"
         ),
@@ -22,13 +22,33 @@ body_plots <- dashboardBody(
     ),
     fluidRow(
       box(
-        title = "Νέα κρούσματα",
-        withSpinner(plotlyOutput("cases_per_day_greece")),
+        title = "Θάνατοι",
+        withSpinner(plotlyOutput("deaths_greece")),
+        column(
+          checkboxInput("checkbox_log_deaths_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
+          width = 4,
+          style = "float: right; padding: 10px; margin-right: 50px"
+        ),
         width = 6
       ),
       box(
         column(
-          uiOutput("cases_per_day_greece_text"),
+          uiOutput("deaths_greece_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
+        title = "Ασθενείς στις ΜΕΘ",
+        withSpinner(plotlyOutput("icu_greece")),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("icu_greece_text"),
           width = 12,
           style = "padding: 50px;"
         ),
