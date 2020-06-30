@@ -2,6 +2,7 @@ library(shinythemes)
 
 source("sections/ui_about.R", local = TRUE)
 source("sections/ui_greece.R", local = TRUE)
+source("sections/ui_plots.R", local = TRUE)
 source("sections/ui_west_macedonia.R", local = TRUE)
 source("sections/ui_twitter.R", local = TRUE)
 
@@ -50,6 +51,7 @@ ui <- fluidPage(
     collapsible = TRUE,
     fluid       = TRUE,
     tabPanel("Ελλάδα", page_greece, value = "page-greece"),
+    tabPanel("Γραφήματα", page_plots, value = "page-plots"),
     tabPanel("Δυτ. Μακεδονία", page_west_macedonia, value = "page-west-macedonia"),
     tabPanel("Twitter", page_twitter, value = "page-twitter"),
     
