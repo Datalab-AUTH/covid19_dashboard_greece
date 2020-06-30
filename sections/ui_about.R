@@ -49,9 +49,9 @@ body_about <- dashboardBody(
               tags$li(tags$b("Δεδομένα εξάπλωσης του COVID-19 στην Ελλάδα:"),
                       tags$a(href = "https://www.covid19response.gr/",
                              "COVID-19 Response Greece")),
-              tags$li(tags$b("Δεδομένα Δυτικής Μακεδονίας:"),
-                      tags$a(href = "https://www.pdm.gov.gr/",
-                             "Περιφέρεια Δυτικής Μακεδονίας"))
+              tags$li(tags$b("Δεδομένα COVID-19:"),
+                      tags$a(href = "https://github.com/CSSEGISandData/COVID-19",
+                             "Johns Hopkins CSSE"))
             ),
             h3("Σύνδεσμοι προς αυτή τη σελίδα"),
             "Μπορείτε να συνδεθείτε σε αυτήν τη σελίδα χρησιμοποιώντας το κύριο της σύνδεσμο:",
@@ -67,9 +67,6 @@ body_about <- dashboardBody(
               tags$li(tags$b("Γραφήματα:"),
                       tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=plots",
                              "https://covid19.csd.auth.gr/greece/?tab=plots")),
-              tags$li(tags$b("Δυτ. Μακεδονία:"),
-                      tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=west-macedonia",
-                             "https://covid19.csd.auth.gr/greece/?tab=west-macedonia")),
               tags$li(tags$b("Twitter:"),
                       tags$a(href = "https://covid19.csd.auth.gr/greece/?tab=twitter",
                              "https://covid19.csd.auth.gr/greece/?tab=twitter")),
