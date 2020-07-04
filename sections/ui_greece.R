@@ -20,7 +20,7 @@ body_greece <- dashboardBody(
   ),
   fluidRow(
     fluidRow(
-      withSpinner(uiOutput("box_keyFigures_greece"))
+      withSpinner(uiOutput("box_keyFigures_greece"), proxy.height = "254px")
     ),
     fluidRow(
       class = "details",
