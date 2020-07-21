@@ -8,6 +8,7 @@ library("plotly")
 library("DT")
 library("countrycode")
 library("wordcloud2")
+library("vistime")
 
 source("utils.R", local = T)
 
@@ -28,6 +29,7 @@ updateData <- function() {
   data_twitter_hashtags_total <<- readRDS("data/data_twitter_hashtags_total.RDS")
   data_twitter_date_tweets <<- readRDS("data/data_twitter_date_tweets.RDS")
   data_twitter_links_total <<- readRDS("data/data_twitter_links_total.RDS")
+  data_measures <<- readRDS("data/data_measures.RDS")
 }
 
 updateData()

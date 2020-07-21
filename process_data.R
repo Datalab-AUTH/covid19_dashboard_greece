@@ -153,6 +153,46 @@ saveRDS(current_date, "data/current_date.RDS")
 saveRDS(changed_date, "data/changed_date.RDS")
 
 #
+# Refugee Camps
+#
+data_refugee_camps <- GET("https://covid-19-greece.herokuapp.com/refugee-camps")
+if (data_refugee_camps["status_code"] == 200) {
+  d <- data_refugee_camps %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    pluck("refugee-camps")
+}
+
+#
+# Government measures
+#
+
+
+data_measures <- GET("https://covid-19-greece.herokuapp.com/measures-timeline")
+if (data_measures["status_code"] == 200) {
+  d <- data_measures %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    pluck("measures")
+  d_impose <- d %>%
+    pluck("imposition") %>%
+    mutate(group = "impose", color = "#d73027")
+  d_lift <- d %>%
+    pluck("lifting") %>%
+    mutate(group = "lift", color = "#1a9850")
+  d <- d_impose %>%
+    rbind(d_lift) %>%
+    mutate(
+      blank = "",
+      category_el = str_trimmer(category_el, 20),
+      event_el = paste0(event_el, " (", format(as.Date(date), format="%d/%m/%Y"), ")"),
+      event_el = str_trimmer(event_el, 25)
+    ) %>%
+    arrange(category_el, date)
+}
+saveRDS(d, "data/data_measures.RDS")
+
+#
 # West Macedonia
 #
 data_west_macedonia <- GET("https://covid-19-greece.herokuapp.com/western-macedonia")
