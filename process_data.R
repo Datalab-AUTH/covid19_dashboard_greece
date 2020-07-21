@@ -162,12 +162,11 @@ if (data_refugee_camps["status_code"] == 200) {
     fromJSON() %>%
     pluck("refugee-camps")
 }
+# TODO: is this trustworthy enough to use it?
 
 #
 # Government measures
 #
-
-
 data_measures <- GET("https://covid-19-greece.herokuapp.com/measures-timeline")
 if (data_measures["status_code"] == 200) {
   d <- data_measures %>%
