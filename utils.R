@@ -92,3 +92,8 @@ wordcloud2a <- function (data, size = 1, minSize = 0, gridSize = 0, fontFamily =
                                                                                                                             browser.padding = 0, browser.fill = TRUE))
   chart
 }
+
+# function that breaks a long string into lines
+str_trimmer <- function(string, break_limit, collapse = "<br>"){
+  sapply(strwrap(string, break_limit, simplify=FALSE), paste, collapse=collapse)
+} 
