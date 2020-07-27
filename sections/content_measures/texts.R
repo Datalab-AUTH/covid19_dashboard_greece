@@ -17,7 +17,7 @@ output$measures_text <- renderText(
 
 output$oxford_indices_text <- renderText(
   paste(
-    em("Δείτε το χρονικό της λήψης και απελευθέρωσης περιοριστικών μέτρων στην Ελλάδα."),
+    em("Παρακολουθήστε τη μεταβολή δεικτών για τα κυβερνητικά μέτρα."),
     br(),br(),
     tags$a(href = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker", "Το πανεπιστήμιο της Οξφόρδης,"),
     "συλλέγει καθημερινά πληροφορίες σχετικά με τη αντίδραση των κυβερνήσεων σε
