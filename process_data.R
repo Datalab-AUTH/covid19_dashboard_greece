@@ -191,6 +191,25 @@ if (data_measures["status_code"] == 200) {
 }
 saveRDS(d, "data/data_measures.RDS")
 
+# Oxford data for government actions (Greece only)
+data_oxford <- read_csv("data/data_oxford.csv") %>%
+  mutate(Date = as.Date.character(Date, format="%Y%m%d")) %>%
+  select("Date", 
+         "StringencyIndexForDisplay",
+         "GovernmentResponseIndexForDisplay",
+         "ContainmentHealthIndexForDisplay",
+         "EconomicSupportIndexForDisplay" ) %>%
+  filter(Date >= "2020-02-20") %>%
+  rename("Αυστηρότητας" = "StringencyIndexForDisplay",
+         "Κυβερνητική αντίδρασης" = "GovernmentResponseIndexForDisplay",
+         "Περιορισμού και υγείας" = "ContainmentHealthIndexForDisplay",
+         "Οικονομικής υποστήριξης" = "EconomicSupportIndexForDisplay") %>%
+  pivot_longer(c("Αυστηρότητας",
+                 "Κυβερνητική αντίδρασης",
+                 "Περιορισμού και υγείας",
+                 "Οικονομικής υποστήριξης"))
+saveRDS(data_oxford, "data/data_oxford.RDS")
+
 #
 # West Macedonia
 #
