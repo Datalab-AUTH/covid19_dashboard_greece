@@ -30,6 +30,7 @@ updateData <- function() {
   data_twitter_date_tweets <<- readRDS("data/data_twitter_date_tweets.RDS")
   data_twitter_links_total <<- readRDS("data/data_twitter_links_total.RDS")
   data_measures <<- readRDS("data/data_measures.RDS")
+  data_oxford <<- readRDS("data/data_oxford.RDS")
 }
 
 updateData()
