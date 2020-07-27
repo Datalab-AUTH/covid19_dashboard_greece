@@ -175,10 +175,10 @@ if (data_measures["status_code"] == 200) {
     pluck("measures")
   d_impose <- d %>%
     pluck("imposition") %>%
-    mutate(group = "impose", color = "#d73027")
+    mutate(group = "impose", color = "#fc8d62")
   d_lift <- d %>%
     pluck("lifting") %>%
-    mutate(group = "lift", color = "#1a9850")
+    mutate(group = "lift", color = "#a6d854")
   d <- d_impose %>%
     rbind(d_lift) %>%
     mutate(
