@@ -179,6 +179,7 @@ if (data_refugee_camps["status_code"] == 200) {
            week_end = as.Date(week_end, format = "%d/%m/%Y")) %>%
     filter(!is.na(confirmed_cases))
 }
+saveRDS(data_refugee_camps, "data/data_refugee_camps.RDS")
 # TODO: is this trustworthy enough to use it?
 
 #
