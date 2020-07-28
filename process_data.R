@@ -169,7 +169,15 @@ if (data_refugee_camps["status_code"] == 200) {
   d <- data_refugee_camps %>%
     content(as="text", encoding = "UTF-8") %>%
     fromJSON() %>%
-    pluck("refugee-camps")
+    pluck("refugee-camps") %>%
+    unnest(cols = c(recorded_events)) %>%
+    separate(case_detection_week,
+             into = c("week_start", "week_end"),
+             sep = "-",
+             remove = FALSE) %>%
+    mutate(week_start = as.Date(week_start, format = "%d/%m/%Y"),
+           week_end = as.Date(week_end, format = "%d/%m/%Y")) %>%
+    filter(!is.na(confirmed_cases))
 }
 # TODO: is this trustworthy enough to use it?
 
