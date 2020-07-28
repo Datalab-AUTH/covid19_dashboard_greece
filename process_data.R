@@ -41,7 +41,16 @@ if (data_greece_all["status_code"] == 200 &&
     mutate(tests = ifelse(is.na(tests), 0, tests),
            tests = ifelse(date == "2020-04-13", 43431, tests), # fix badly reported data
            tests = ifelse(date == "2020-04-14", 47389, tests),
-           tests = ifelse(date == "2020-04-15", 48798, tests))
+           tests = ifelse(date == "2020-04-15", 48798, tests),
+           tests = ifelse(date == "2020-06-03", 189750, tests), # these are bad due to underreporting
+           tests = ifelse(date == "2020-06-05", 202719, tests), # for that week
+           tests = ifelse(date == "2020-06-06", 211115, tests),
+           tests = ifelse(date == "2020-06-07", 220659, tests),
+           tests = ifelse(date == "2020-06-10", 237276, tests), # these two are swapped
+           tests = ifelse(date == "2020-06-11", 240924, tests),
+           tests = ifelse(date == "2020-06-24", 291840, tests), # these are swapped too
+           tests = ifelse(date == "2020-06-25", 295639, tests),
+           )
     
   data_greece <- data_greece_all_parsed %>%
     merge(data_greece_ICU_parsed) %>%
