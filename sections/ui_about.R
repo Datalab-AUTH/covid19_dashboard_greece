@@ -51,7 +51,10 @@ body_about <- dashboardBody(
                              "COVID-19 Response Greece")),
               tags$li(tags$b("Δεδομένα COVID-19:"),
                       tags$a(href = "https://github.com/CSSEGISandData/COVID-19",
-                             "Johns Hopkins CSSE"))
+                             "Johns Hopkins CSSE")),
+              tags$li(tags$b("Δεδομένα λήψης μέτρων:"),
+                      tags$a(href = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker",
+                             "Oxford COVID-19 Government Response Tracker")),
             ),
             h3("Σύνδεσμοι προς αυτή τη σελίδα"),
             "Μπορείτε να συνδεθείτε σε αυτήν τη σελίδα χρησιμοποιώντας το κύριο της σύνδεσμο:",
