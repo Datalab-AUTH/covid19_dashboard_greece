@@ -61,6 +61,7 @@ if (data_greece_all["status_code"] == 200 &&
     mutate(
       active_new = active - lag(active, 1),
       confirmed_new = confirmed - lag(confirmed, 1),
+      confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
       deaths_new = deaths - lag(deaths, 1),
       recovered_new = recovered -  lag(recovered, 1),
       icu_new = icu - lag(icu, 1) + deaths_new,
@@ -115,8 +116,9 @@ if (data_greece_region_timeline["status_code"] == 200) {
     select(-index) %>%
     group_by(region) %>%
     arrange(region) %>%
-    mutate(confirmed_new = confirmed - lag(confirmed, 1)) %>%
     mutate(
+      confirmed_new = confirmed - lag(confirmed, 1),
+      confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
       confirmedPerCapita = round(100000 * confirmed / population, 2),
       confirmedPerCapita_new = round(100000 * confirmed_new / population, 2)
     ) %>%
