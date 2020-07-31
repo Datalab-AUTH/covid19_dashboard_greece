@@ -41,7 +41,16 @@ if (data_greece_all["status_code"] == 200 &&
     mutate(tests = ifelse(is.na(tests), 0, tests),
            tests = ifelse(date == "2020-04-13", 43431, tests), # fix badly reported data
            tests = ifelse(date == "2020-04-14", 47389, tests),
-           tests = ifelse(date == "2020-04-15", 48798, tests))
+           tests = ifelse(date == "2020-04-15", 48798, tests),
+           tests = ifelse(date == "2020-06-03", 189750, tests), # these are bad due to underreporting
+           tests = ifelse(date == "2020-06-05", 202719, tests), # for that week
+           tests = ifelse(date == "2020-06-06", 211115, tests),
+           tests = ifelse(date == "2020-06-07", 220659, tests),
+           tests = ifelse(date == "2020-06-10", 237276, tests), # these two are swapped
+           tests = ifelse(date == "2020-06-11", 240924, tests),
+           tests = ifelse(date == "2020-06-24", 291840, tests), # these are swapped too
+           tests = ifelse(date == "2020-06-25", 295639, tests),
+           )
     
   data_greece <- data_greece_all_parsed %>%
     merge(data_greece_ICU_parsed) %>%
@@ -52,6 +61,7 @@ if (data_greece_all["status_code"] == 200 &&
     mutate(
       active_new = active - lag(active, 1),
       confirmed_new = confirmed - lag(confirmed, 1),
+      confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
       deaths_new = deaths - lag(deaths, 1),
       recovered_new = recovered -  lag(recovered, 1),
       icu_new = icu - lag(icu, 1) + deaths_new,
@@ -106,8 +116,9 @@ if (data_greece_region_timeline["status_code"] == 200) {
     select(-index) %>%
     group_by(region) %>%
     arrange(region) %>%
-    mutate(confirmed_new = confirmed - lag(confirmed, 1)) %>%
     mutate(
+      confirmed_new = confirmed - lag(confirmed, 1),
+      confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
       confirmedPerCapita = round(100000 * confirmed / population, 2),
       confirmedPerCapita_new = round(100000 * confirmed_new / population, 2)
     ) %>%
@@ -160,8 +171,17 @@ if (data_refugee_camps["status_code"] == 200) {
   d <- data_refugee_camps %>%
     content(as="text", encoding = "UTF-8") %>%
     fromJSON() %>%
-    pluck("refugee-camps")
+    pluck("refugee-camps") %>%
+    unnest(cols = c(recorded_events)) %>%
+    separate(case_detection_week,
+             into = c("week_start", "week_end"),
+             sep = "-",
+             remove = FALSE) %>%
+    mutate(week_start = as.Date(week_start, format = "%d/%m/%Y"),
+           week_end = as.Date(week_end, format = "%d/%m/%Y")) %>%
+    filter(!is.na(confirmed_cases))
 }
+saveRDS(data_refugee_camps, "data/data_refugee_camps.RDS")
 # TODO: is this trustworthy enough to use it?
 
 #
