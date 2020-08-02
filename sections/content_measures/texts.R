@@ -19,7 +19,7 @@ output$oxford_indices_text <- renderText(
   paste(
     em("Παρακολουθήστε τη μεταβολή δεικτών για τα κυβερνητικά μέτρα."),
     br(),br(),
-    tags$a(href = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker", "Το πανεπιστήμιο της Οξφόρδης,"),
+    tags$a(href = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker", "Το πανεπιστήμιο της Οξφόρδης"),
     "συλλέγει καθημερινά πληροφορίες σχετικά με τη αντίδραση των κυβερνήσεων σε
     κάθε χώρα για την αντιμετώπιση του κορωνοϊού. Σε μια προσπάθεια
     ποσοτικοποίησης των μέτρων που λαμβάνονται, υπολογίζονται τέσσερις δείκτες
