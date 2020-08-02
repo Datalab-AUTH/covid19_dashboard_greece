@@ -1,12 +1,12 @@
 output$measures <- renderPlotly({
 
   p <- vistime(data_measures,
-               events = "blank",
-               start = "date",
-               end = "date",
-               groups = "category_el",
+               col.event = "blank",
+               col.start = "date",
+               col.end = "date",
+               col.group = "category_el",
                show_labels = FALSE,
-               tooltips = "event_el",
+               col.tooltip = "event_el",
                background_lines = 0
                ) %>%
     layout(
