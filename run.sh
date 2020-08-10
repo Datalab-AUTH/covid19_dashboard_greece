@@ -10,6 +10,8 @@ pull_latest_data() {
 	(
 	 echo "Updating Oxford data..."
 	 ./update_oxford_data.sh
+	 echo "Updating IMED data..."
+	 ./update_imed_data.sh
 	 echo "Updating RDS files"
 	 Rscript ./process_data.R
 	)

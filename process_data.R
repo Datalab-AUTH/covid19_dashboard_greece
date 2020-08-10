@@ -89,42 +89,43 @@ if (data_greece_region["status_code"] == 200) {
     mutate(confirmedPerCapita = round(100000 * confirmed / population, 2))
   saveRDS(data_greece_region_parsed, "data/data_greece_region.RDS")
 }
-data_greece_region_timeline <- GET("https://covid-19-greece.herokuapp.com/regions-history")
-if (data_greece_region_timeline["status_code"] == 200) {
-  data_greece_geo <- read_csv("data/greece_geo_coordinates.csv")
-  d <- data_greece_region_timeline %>%
-    content(as="text", encoding = "UTF-8") %>%
-    fromJSON() %>%
-    first()
-  dates <- d %>%
-    pluck("date") %>%
-    enframe() %>%
-    mutate(value = as.Date(value, format = "%Y-%m-%d")) %>%
-    rename("date" = "value", "index" = "name")
-  timeline <- d %>%
-    pluck("regions") %>%
-    melt() %>%
-    filter(variable == "region_cases") %>%
-    select(-variable) %>%
-    merge(data_greece_geo) %>%
-    rename(
-      "region" = "region_en_name",
-      "index" = "L1",
-      "confirmed" = "value"
-      ) %>%
-    merge(dates) %>%
-    select(-index) %>%
-    group_by(region) %>%
-    arrange(region) %>%
-    mutate(
-      confirmed_new = confirmed - lag(confirmed, 1),
-      confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
-      confirmedPerCapita = round(100000 * confirmed / population, 2),
-      confirmedPerCapita_new = round(100000 * confirmed_new / population, 2)
-    ) %>%
-    as_tibble()
-  saveRDS(timeline, "data/data_greece_region_timeline.RDS")
-}
+
+
+data_imed_cases <- read_csv("data/data_imed_cases.csv") %>%
+  rename("region" = "district",
+         "region_en" = "district_EN") %>%
+  select(-pop_11) %>%
+  merge(data_greece_geo) %>%
+  pivot_longer(cols = starts_with(c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")),
+               names_to = "date",
+               values_to = "confirmed") %>%
+  mutate(date = as.Date(date, format = "%m/%d/%y"))
+data_imed_deaths <- read_csv("data/data_imed_deaths.csv") %>%
+  rename("region" = "district",
+         "region_en" = "district_EN") %>%
+  select(-pop_11) %>%
+  pivot_longer(cols = starts_with(c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")),
+               names_to = "date",
+               values_to = "deaths") %>%
+  mutate(date = as.Date(date, format = "%m/%d/%y"))
+data_greece_region_timeline <- data_imed_cases %>%
+  merge(data_imed_deaths) %>%
+  group_by(region) %>%
+  arrange_by(region, date) %>%
+  mutate(
+    confirmed_new = confirmed - lag(confirmed, 1),
+    confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
+    confirmedPerCapita = round(100000 * confirmed / population, 2),
+    deaths_new = deaths - lag(deaths, 1),
+    deaths_7day_mean = rollmean(deaths_new, 7, fill = NA, align = "right"),
+    deathsPerCapita = round(100000 * deaths / population, 2)
+  ) %>%
+  rename("region_gr_name" = "region") %>%
+  mutate("region_gr_name" = gsub("Περιφέρεια ", "", region_gr_name)) %>%
+  as_tibble()
+saveRDS(data_greece_region_timeline, "data/data_greece_region_timeline.RDS")
+
+
 data_greece_age <- GET("https://covid-19-greece.herokuapp.com/age-distribution")
 if (data_greece_age["status_code"] == 200) {
   data_greece_age_parsed <- data_greece_age %>%
