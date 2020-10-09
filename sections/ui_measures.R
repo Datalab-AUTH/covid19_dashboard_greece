@@ -2,13 +2,13 @@ body_measures <- dashboardBody(
   fluidRow(
     fluidRow(
       box(
-        title = "Λήψη/Απελευθέρωση μέτρων",
-        withSpinner(plotlyOutput("measures")),
+        title = "Δείκτες λήψης μέτρων",
+        withSpinner(plotlyOutput("oxford_indices")),
         width = 6
       ),
       box(
         column(
-          uiOutput("measures_text"),
+          uiOutput("oxford_indices_text"),
           width = 12,
           style = "padding: 50px;"
         ),
@@ -19,13 +19,13 @@ body_measures <- dashboardBody(
   fluidRow(
     fluidRow(
       box(
-        title = "Δείκτες λήψης μέτρων",
-        withSpinner(plotlyOutput("oxford_indices")),
+        title = "Λήψη/Απελευθέρωση μέτρων",
+        withSpinner(plotlyOutput("measures")),
         width = 6
       ),
       box(
         column(
-          uiOutput("oxford_indices_text"),
+          uiOutput("measures_text"),
           width = 12,
           style = "padding: 50px;"
         ),
