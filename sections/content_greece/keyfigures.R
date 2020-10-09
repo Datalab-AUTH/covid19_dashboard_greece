@@ -1,9 +1,9 @@
 
 key_figures_greece <- reactive({
   data <- data_greece_all %>%
-    filter(date == input$timeslider_greece)
+    filter(date == max(date))
   data_yesterday <- data_greece_all %>%
-    filter(date == input$timeslider_greece - 1)
+    filter(date == max(date - 1) - 1)
   
   data_diff <- list(
     confirmed = data$confirmed - data_yesterday$confirmed,

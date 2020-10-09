@@ -50,8 +50,7 @@ ui <- fluidPage(
     id          = "navbar_set_panel",
     collapsible = TRUE,
     fluid       = TRUE,
-    tabPanel("Συνοπτικά", page_greece, value = "page-greece"),
-    tabPanel("Γραφήματα", page_plots, value = "page-plots"),
+    tabPanel("Ελλάδα", page_greece, value = "page-greece"),
     tabPanel("Μέτρα", page_measures, value = "page-measures"),
     tabPanel("Twitter", page_twitter, value = "page-twitter"),
     

@@ -22,44 +22,120 @@ body_greece <- dashboardBody(
     fluidRow(
       withSpinner(uiOutput("box_keyFigures_greece"))
     ),
-    fluidRow(
-      class = "details",
-      column(
+      fluidRow(
         box(
-          width = 12,
-          withSpinner(leafletOutput("overview_map_greece"))
+          title = "Επιβεβαιωμένα κρούσματα",
+          withSpinner(plotlyOutput("confirmed_greece")),
+          column(
+            checkboxInput("checkbox_log_confirmed_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
+            width = 4,
+            style = "float: right; padding: 10px; margin-right: 50px"
+          ),
+          width = 6
         ),
-        class = "map",
-        width = 6,
-        style = 'padding:0px;'
+        box(
+          column(
+            uiOutput("confirmed_greece_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
       ),
-      column(
-        withSpinner(uiOutput("summary_table_greece")),
-        class = "summary",
-        width = 6,
-        style = 'padding:0px;'
-      ),
-      column(
-        sliderInput(
-          "timeslider_greece",
-          label      = "Επιλογή ημερομηνίας",
-          min        = min(data_greece_region_timeline$date),
-          max        = min(max(data_greece_region_timeline$date), max(data_greece_all$date)),
-          value      = min(max(data_greece_region_timeline$date), max(data_greece_all$date)),
-          width      = "100%",
-          timeFormat = "%d.%m.%Y",
-          animate    = animationOptions(interval = 1000, loop = TRUE, playButton = "", pauseButton = "")
+      fluidRow(
+        box(
+          title = "Θάνατοι",
+          withSpinner(plotlyOutput("deaths_greece")),
+          column(
+            checkboxInput("checkbox_log_deaths_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
+            width = 4,
+            style = "float: right; padding: 10px; margin-right: 50px"
+          ),
+          width = 6
         ),
-        class = "slider",
-        width = 12,
-        style = 'padding-left:15px; padding-right:15px;'
+        box(
+          column(
+            uiOutput("deaths_greece_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
       ),
-      column(
-        uiOutput("timeslider_greece_note"),
-        width = 12,
-        style = "padding-bottom: 50px; padding-right: 50px; padding-left: 50px;"
-      )
-    )
+      fluidRow(
+        box(
+          title = "Ασθενείς στις ΜΕΘ",
+          withSpinner(plotlyOutput("icu_greece")),
+          width = 6
+        ),
+        box(
+          column(
+            uiOutput("icu_greece_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
+      ),
+      fluidRow(
+        box(
+          title = "Έλεγχοι δειγμάτων COVID-19",
+          withSpinner(plotlyOutput("tests_greece")),
+          column(
+            checkboxInput("checkbox_log_tests_greece", label = "Άξονας Υ (Συνολικός αριθμός) σε λογαριθμική κλίμακα", value = FALSE),
+            width = 4,
+            style = "float: right; padding: 10px; margin-right: 50px"
+          ),
+          width = 6
+        ),
+        box(
+          column(
+            uiOutput("tests_greece_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
+      ),
+      fluidRow(
+        box(
+          title = "Ηλικιακή κατανομή",
+          withSpinner(plotlyOutput("age_greece")),
+          column(
+            uiOutput("select_age_var_greece"),
+            width = 4,
+          ),
+          column(
+            checkboxInput("checkbox_age_pct_greece", label = "Εμφάνιση ποσοστών", value = FALSE),
+            width = 3,
+            style = "float: right; padding: 10px; margin-right: 50px"
+          ),
+          width = 6
+        ),
+        box(
+          column(
+            uiOutput("age_greece_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
+      ),
+      fluidRow(
+        box(
+          title = "Κατανομή φύλων",
+          withSpinner(plotlyOutput("gender_greece")),
+          width = 6
+        ),
+        box(
+          column(
+            uiOutput("gender_greece_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
+      ),
   ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),
   tags$style(type = 'text/css', ".nav-tabs-custom > .nav-tabs > li > a {color: #fff;}"),
