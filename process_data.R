@@ -147,8 +147,10 @@ if (data_greece_gender["status_code"] == 200) {
     fromJSON() %>%
     first() %>%
     melt() %>%
+    filter(L1 != "updated") %>%
     rename("Gender" = "L1", "Percentage" = "value") %>%
-    mutate(Gender = recode(Gender, "total_females" = "Γυναίκες", "total_males" = "Άνδρες"))
+    mutate(Gender = recode(Gender, "total_females_percentage" = "Γυναίκες", "total_males_percentage" = "Άνδρες"),
+           Percentage = as.numeric(Percentage))
   saveRDS(data_greece_gender_parsed, "data/data_greece_gender.RDS")
 }
 
