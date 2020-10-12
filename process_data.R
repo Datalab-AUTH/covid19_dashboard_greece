@@ -59,11 +59,9 @@ if (data_greece_all["status_code"] == 200 &&
     as_tibble() %>%
     mutate(date = as.Date(date, format="%Y-%m-%d")) %>%
     mutate(
-      active_new = active - lag(active, 1),
       confirmed_new = confirmed - lag(confirmed, 1),
       confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
       deaths_new = deaths - lag(deaths, 1),
-      recovered_new = recovered -  lag(recovered, 1),
       icu_new = icu - lag(icu, 1) + deaths_new,
       tests_new = tests - lag(tests, 1)
     )
