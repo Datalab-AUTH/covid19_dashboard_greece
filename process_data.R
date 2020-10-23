@@ -154,6 +154,16 @@ if (data_greece_gender["status_code"] == 200) {
   saveRDS(data_greece_gender_parsed, "data/data_greece_gender.RDS")
 }
 
+#
+# data from SandBird github repo
+# https://github.com/Sandbird/covid19-Greece
+#
+data_sandbird_cases <- read_csv("data/sandbird/cases.csv",
+                                col_names = TRUE,
+                                col_types = cols(.default = "i", date = "D")) %>%
+  mutate(new_ag_tests = ag_tests - lag(ag_tests, 1),
+         total_tests_pcr_ag = total_tests + ag_tests)
+saveRDS(data_sandbird_cases, "data/data_sandbird_cases.RDS")
 
 #
 # Update the dates
