@@ -8,6 +8,8 @@
 
 pull_latest_data() {
 	(
+	 echo "Updating Sandbird data..."
+	 ./update_sandbird_data.sh
 	 echo "Updating Oxford data..."
 	 ./update_oxford_data.sh
 	 echo "Updating RDS files"
