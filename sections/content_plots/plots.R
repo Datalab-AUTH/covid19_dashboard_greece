@@ -128,7 +128,8 @@ output$tests_greece <- renderPlotly({
         title = "Ημερομηνία",
         type = "date",
         tickformat = "%d/%m/%y"
-      )
+      ),
+      barmode = "stack"
     )
   
   if (input$checkbox_log_tests_greece) {
