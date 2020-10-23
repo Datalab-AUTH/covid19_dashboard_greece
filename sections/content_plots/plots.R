@@ -121,7 +121,7 @@ output$tests_greece <- renderPlotly({
       yaxis2 = list(
         overlaying = "y",
         side = "right",
-        title = "Συνολικός αριθμός δειγμάτων",
+        title = "Σύνολο",
         rangemode = "nonnegative"
       ),
       xaxis = list(
