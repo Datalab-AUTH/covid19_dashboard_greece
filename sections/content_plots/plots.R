@@ -113,9 +113,9 @@ output$tests_greece <- renderPlotly({
   data <- data_sandbird_cases
   p <- plot_ly(data = data, x = ~date, y = ~new_tests, type = 'bar', name = "Νέοι έλεγχοι δειγμάτων (RT-PCR)") %>%
     add_trace(data = data, x = ~date, y = ~new_ag_tests, type = 'bar', name = "Νέοι έλεγχοι Rapid Ag") %>%
-    add_trace(data = data, x = ~date, y = ~total_tests_pcr_ag, type = 'scatter', mode = 'lines', name = "Γενικό σύνολο", yaxis = "y2") %>%
     add_trace(data = data, x = ~date, y = ~total_tests, type = 'scatter', mode = 'lines', name = "Σύνολο RT-PCR", yaxis = "y2") %>%
     add_trace(data = data, x = ~date, y = ~ag_tests, type = 'scatter', mode = 'lines', name = "Σύνολο Rapid Ag", yaxis = "y2") %>%
+    add_trace(data = data, x = ~date, y = ~total_tests_pcr_ag, type = 'scatter', mode = 'lines', name = "Γενικό σύνολο", yaxis = "y2") %>%
     layout(
       yaxis = list(title = "Έλεγχοι δειγμάτων", rangemode = "nonnegative"),
       yaxis2 = list(
