@@ -1,89 +1,17 @@
-library("htmltools")
 
-addLabel_greece <- function(data) {
-  data$label <- paste0(
-    '<b>', data$region_gr_name, '</b><br>
-    <table style="width:120px;">
-    <tr><td>Επιβεβαιωμένα κρούσματα:</td><td align="right">', data$confirmed, '</td></tr>
-    <tr><td>Νέα κρούσματα:</td><td align="right">', data$confirmed_new, '</td></tr>',
-    ifelse(!is.infinite(data$confirmedPerCapita),
-          paste0(
-                '<tr><td>Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους:</td><td align="right">',
-                data$confirmedPerCapita, 
-                '</td></tr>'
-                ),
-          ''),
-    '</table>'
-  )
-  data$label <- lapply(data$label, HTML)
-  
-  return(data)
-}
-
-map_greece <- leaflet(addLabel_greece(data_greece_region)) %>%
-  setMaxBounds(-180, -90, 180, 90) %>%
-  setView(23, 38, zoom = 6) %>%
+greece_map <- leaflet() %>% 
   addProviderTiles(providers$CartoDB.DarkMatter, group = "Dark") %>%
-  addLayersControl(
-    overlayGroups = c("Επιβεβαιωμένα κρούσματα",
-                      "Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους",
-                      "Νέα κρούσματα")
-  ) %>%
-  hideGroup("Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους") %>%
-  addEasyButton(easyButton(
-    icon    = "glyphicon glyphicon-globe", title = "Reset zoom",
-    onClick = JS("function(btn, map){ map.setView([38, 23], 6); }")))
-
-observe({
-  req(input$timeslider_greece)
-  zoomLevel <- input$overview_map_greece_zoom
-  data <- data_greece_region_timeline %>%
-    filter(date == input$timeslider_greece) %>%
-    addLabel_greece()
-  req(data)
+  setView(24.3, 38.2, zoom = 7) %>%
+  addPolygons(data = data_greece_spdf,
+              stroke = TRUE, color = "black", weight = 1,
+              smoothFactor = 0.2, fillOpacity = 0.7,
+              fillColor = ~map_pal(data_greece_areas$color),
+              popup = paste("<b>", data_greece_spdf$LEKTIKO, "</b><br>",
+                            "Επίπεδο: ", data_greece_areas$level, "<br>")) %>%
+  addLegend(position = "bottomleft", values = data_greece_areas$color,
+            colors = c("#A5CB81", "#F6BC26", "#E5712A", "#AC242A"),
+            labels = c("1. Ετοιμότητας", "2. Επιτήρησης", "3. Αυξημένης επιτήρησης", "4. Αυξημένου κινδύνου"),
+            title = "Επίπεδο μέτρων",
+            opacity = 1)
   
-  if (nrow(data) > 0) {
-    leafletProxy("overview_map_greece", data = data) %>%
-      clearMarkers() %>%
-      addCircleMarkers(
-        lng          = ~Long,
-        lat          = ~Lat,
-        radius       = ~log(confirmed^(zoomLevel / 2)),
-        stroke       = FALSE,
-        color        = "#0F7A82",
-        fillOpacity  = 0.5,
-        label        = ~label,
-        labelOptions = labelOptions(textsize = 15),
-        group        = "Επιβεβαιωμένα κρούσματα"
-      ) %>%
-      addCircleMarkers(
-        lng          = ~Long,
-        lat          = ~Lat,
-        radius       = ~log(confirmedPerCapita^(zoomLevel)),
-        stroke       = FALSE,
-        color        = "#00b3ff",
-        fillOpacity  = 0.5,
-        label        = ~label,
-        labelOptions = labelOptions(textsize = 15),
-        group        = "Επιβεβαιωμένα κρούσματα / 100.000 κατοίκους"
-      ) %>%
-      addCircleMarkers(
-        lng          = ~Long,
-        lat          = ~Lat,
-        radius       = ~log(confirmed_new^(zoomLevel)),
-        stroke       = FALSE,
-        color        = "#E7590B",
-        fillOpacity  = 0.5,
-        label        = ~label,
-        labelOptions = labelOptions(textsize = 15),
-        group = "Νέα κρούσματα"
-      )
-  } else {
-    leafletProxy("overview_map_greece", data = data) %>%
-      clearMarkers()
-  }
-})
-
-output$overview_map_greece <- renderLeaflet(map_greece)
-
-
+output$overview_map_greece <- renderLeaflet(greece_map)

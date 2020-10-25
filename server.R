@@ -54,7 +54,7 @@ server <- function(input, output, session) {
       if (query$tab == "greece") {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-greece")
       } else if (query$tab == "plots") {
-        updateTabsetPanel(session, "navbar_set_panel", selected = "page-greece")
+        updateTabsetPanel(session, "navbar_set_panel", selected = "page-plots")
       } else if (query$tab == "west-macedonia") {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-west-macedonia")
       } else if (query$tab == "measures") {
