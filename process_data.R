@@ -11,6 +11,8 @@ library("zoo")
 library("httr")
 library("reshape2")
 library("jsonlite")
+library("rgdal")
+library("leaflet")
 
 source("utils.R", local = T)
 
@@ -164,6 +166,35 @@ data_sandbird_cases <- read_csv("data/sandbird/cases.csv",
   mutate(new_ag_tests = ag_tests - lag(ag_tests, 1),
          total_tests_pcr_ag = total_tests + ag_tests)
 saveRDS(data_sandbird_cases, "data/data_sandbird_cases.RDS")
+
+#
+# map data from covid19.gov.gr
+#
+# Read in map data
+greece_spdf <- readOGR( "data/greece_map/perif_enot/", encoding="cp1253")
+greece_spdf_trans <- spTransform(greece_spdf, CRS("+proj=longlat +ellps=GRS80"))
+saveRDS(greece_spdf_trans, "data/greece_spdf.RDS")
+
+# color data for areas
+color_data <- fromJSON("data/greece_map/data.json") %>%
+  lapply(data.frame, stringsAsFactors = FALSE) %>%
+  bind_rows() %>%
+  rename("area" = "name1") %>%
+  select(-"zip") %>%
+  unique() %>%
+  mutate(color = recode(color, "green" = 1, "yellow" = 2, "orange" = 3, "red" = 4)) %>%
+  add_row(area = "ΑΓΙΟ ΟΡΟΣ", color = 0)
+
+area_names <- read_csv("data/area_names.csv", col_types = "cc")
+
+areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
+                   id = greece_spdf_trans$KALCODE) %>%
+  rename("area" = "place") %>%
+  inner_join(color_data, by = "area") %>%
+  inner_join(area_names, by = "area") %>%
+  mutate(level = replace(color, color == 0, NA))
+saveRDS(areas, "data/greece_areas.RDS")
+
 
 #
 # Update the dates
