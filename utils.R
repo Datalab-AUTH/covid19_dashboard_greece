@@ -96,4 +96,12 @@ wordcloud2a <- function (data, size = 1, minSize = 0, gridSize = 0, fontFamily =
 # function that breaks a long string into lines
 str_trimmer <- function(string, break_limit, collapse = "<br>"){
   sapply(strwrap(string, break_limit, simplify=FALSE), paste, collapse=collapse)
-} 
+}
+
+# Five color palette for map
+map_pal <- colorQuantile(palette = c("#AAAAAA",
+                                     "#A5CB81",
+                                     "#F6BC26",
+                                     "#E5712A",
+                                     "#AC242A"),
+                         domain = 0:4, n = 5, reverse = FALSE)
