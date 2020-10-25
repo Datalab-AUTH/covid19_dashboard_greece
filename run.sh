@@ -8,6 +8,8 @@
 
 pull_latest_data() {
 	(
+	 echo "Update area data from covid19.gov.gr..."
+	 ./update_greece_areas.sh
 	 echo "Updating Sandbird data..."
 	 ./update_sandbird_data.sh
 	 echo "Updating Oxford data..."
