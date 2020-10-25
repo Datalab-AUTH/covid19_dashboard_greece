@@ -23,6 +23,8 @@ updateData <- function() {
   data_greece_age_averages <<- readRDS("data/data_greece_age_averages.RDS")
   data_greece_gender <<- readRDS("data/data_greece_gender.RDS")
   data_sandbird_cases <<- readRDS("data/data_sandbird_cases.RDS")
+  data_greece_spdf <<- readRDS("data/greece_spdf.RDS")
+  data_greece_areas <<- readRDS("data/area_names_df.RDS")
   data_west_macedonia_hospitals <<- readRDS("data/data_west_macedonia_hospitals.RDS")
   data_west_macedonia_total <<- readRDS("data/data_west_macedonia_total.RDS")
   data_west_macedonia_deaths <<- readRDS("data/data_west_macedonia_deaths.RDS")
