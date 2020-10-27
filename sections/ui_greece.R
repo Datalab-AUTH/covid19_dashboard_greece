@@ -51,9 +51,6 @@ body_greece <- dashboardBody(
       .nav-tabs-custom .nav-tabs li.active a {background: #0F7A82; color: #fff;}
       label {color: #fff; }
       .nav-tabs-custom .tab-content {background: #444b55;}
-      table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {background-color: #444b55;}
-             table.dataTable.stripe tbody tr.even, table.dataTable.display tbody tr.even {background-color: #2F333B;}
-      table.dataTable tr.selected { color: #000 }
       .legend {color: #fff; }"),
   tags$style(type = 'text/css', ".leaflet-control-layers-expanded { background: #444b55; }"),
   tags$style(type = 'text/css', ".selectize-control.multi .selectize-input div { background: #0F7A82; color: #fff;}")
