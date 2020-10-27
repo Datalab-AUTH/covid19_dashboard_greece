@@ -22,20 +22,6 @@ server <- function(input, output, session) {
     )
   })
   
-  # West Macedonia
-  observe({
-    data_west_macedonia <- data_atDate_west_macedonia(input$timeslider_west_macedonia)
-  })
-
-  observe({
-    updateSliderInput(
-      session,
-      "timeslider_west_macedonia",
-      max = max(data_west_macedonia_hospitals$date),
-      value = max(data_west_macedonia_hospitals$date)
-    )
-  })
-  
   # Twitter
   observe({
     updateSliderInput(
@@ -55,8 +41,6 @@ server <- function(input, output, session) {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-greece")
       } else if (query$tab == "plots") {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-plots")
-      } else if (query$tab == "west-macedonia") {
-        updateTabsetPanel(session, "navbar_set_panel", selected = "page-west-macedonia")
       } else if (query$tab == "measures") {
         updateTabsetPanel(session, "navbar_set_panel", selected = "page-measures")
       } else if (query$tab == "twitter") {

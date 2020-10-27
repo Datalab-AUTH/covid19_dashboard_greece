@@ -42,11 +42,6 @@ data_atDate_greece <<- function(inputDate) {
     distinct()
 }
 
-data_atDate_west_macedonia <<- function(inputDate) {
-  data_west_macedonia_hospitals[which(data_west_macedonia_hospitals$date == inputDate),] %>%
-    distinct()
-}
-
 # wordcloud2 alternative implemenation, to fix this issue:
 # https://github.com/rstudio/shinydashboard/issues/281#issuecomment-615888981
 wordcloud2a <- function (data, size = 1, minSize = 0, gridSize = 0, fontFamily = "Segoe UI", 
