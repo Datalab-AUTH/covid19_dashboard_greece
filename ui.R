@@ -1,4 +1,4 @@
-library(shinythemes)
+library("shinythemes")
 
 source("sections/ui_about.R", local = TRUE)
 source("sections/ui_greece.R", local = TRUE)
