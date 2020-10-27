@@ -11,43 +11,37 @@ output$summary_table_greece <- renderUI({
   )
 })
 
-output$summaryDT_greece <- renderDataTable(getSummaryDT_greece(data_atDate_greece(input$timeslider_greece)))
+output$summaryDT_greece <- renderDataTable(getSummaryDT_greece())
 proxy_summaryDT_greece  <- dataTableProxy("summaryDT_greece")
 
-observeEvent(input$timeslider_greece, {
-  data <- data_atDate_greece(input$timeslider_greece)
-  replaceData(proxy_summaryDT_greece,
-              summariseData_greece(data),
-              rownames = FALSE)
-}, ignoreInit = TRUE, ignoreNULL = TRUE)
-
-summariseData_greece <- function(df) {
-  df %>%
-    select("region_gr_name", "confirmed", "confirmed_new", "confirmedPerCapita") %>%
+summariseData_greece <- function() {
+  data_greece_areas %>%
+    select("area_short_gen", "level_text", "level") %>%
     rename(
-      "Περιφέρεια" = "region_gr_name",
-      "Επιβεβαιωμένα κρούσματα" = "confirmed",
-      "Νέα κρούσματα" = "confirmed_new",
-      "Επιβ. κρούσματα / 100.000 κατοίκους" = "confirmedPerCapita"
+      "Περιφέρεια" = "area_short_gen",
+      "Επίπεδο μέτρων" = "level_text"
       ) %>%
     as.data.frame()
 }
 
-getSummaryDT_greece <- function(data) {
+getSummaryDT_greece <- function() {
+  table_data <- summariseData_greece()
+  my_levels = na.omit(unique(table_data$level))
   datatable(
-    na.omit(summariseData_greece(data)),
+    na.omit(table_data),
     rownames  = FALSE,
     options   = list(
       order          = list(1, "desc"),
       scrollX        = TRUE,
-      scrollY        = "37vh",
+      scrollY        = "82vh",
       scrollCollapse = T,
       dom            = 'ft',
       paging         = FALSE,
       language       = list(
         search = "Αναζήτηση:",
         zeroRecords  = "Δεν βρέθηκαν δεδομένα"
-      )
+      ),
+      columnDefs = list(list(visible = FALSE, targets = c(2)))
     ),
     selection = "none"
   )
