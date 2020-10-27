@@ -1,6 +1,6 @@
 body_greece <- dashboardBody(
   tags$head(
-    tags$style(type = "text/css", "#overview_map_greece {height: 900px !important;}"),
+    tags$style(type = "text/css", "#overview_map_greece {height: 95vh !important;}"),
     tags$style(type = 'text/css', ".slider-animate-button { font-size: 20pt !important; }"),
     tags$style(type = 'text/css', ".slider-animate-container { text-align: left !important; }"),
     tags$style(type = "text/css", "@media (max-width: 991px) { .details { display: flex; flex-direction: column; } }"),
