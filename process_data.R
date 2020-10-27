@@ -192,7 +192,12 @@ areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
   rename("area" = "place") %>%
   inner_join(color_data, by = "area") %>%
   inner_join(area_names, by = "area") %>%
-  mutate(level = replace(color, color == 0, NA))
+  mutate(level = replace(color, color == 0, NA),
+         level_text = recode(color,
+                             `1` = "1. Ετοιμότητας",
+                             `2` = "2. Επιτήρησης",
+                             `3` = "3. Αυξημένης επιτήρησης",
+                             `4` = "4. Αυξημένου κινδύνου"))
 saveRDS(areas, "data/greece_areas.RDS")
 
 
