@@ -4,6 +4,6 @@
 # a docker image)
 
 install.packages("renv")
-library(renv)
+library("renv")
 renv::restore()
 
