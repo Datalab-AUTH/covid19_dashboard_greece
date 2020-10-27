@@ -49,9 +49,17 @@ body_about <- dashboardBody(
               tags$li(tags$b("Δεδομένα εξάπλωσης του COVID-19 στην Ελλάδα:"),
                       tags$a(href = "https://www.covid19response.gr/",
                              "COVID-19 Response Greece")),
+              tags$li(tags$b("Ιστοσελίδα της Ελληνικής Κυβέρνησης για την
+                             εξάπλωση του κορονωϊού:"),
+                      tags$a(href = "https://covid19.gov.gr",
+                             "covid19.gov.gr")),
               tags$li(tags$b("Δεδομένα COVID-19:"),
                       tags$a(href = "https://github.com/CSSEGISandData/COVID-19",
                              "Johns Hopkins CSSE")),
+              tags$li(tags$b("Κατά περιοχή δεδομένα εξάπλωσης του κορονωϊου
+                             στην Ελλάδα:"),
+                      tags$a(href = "https://github.com/Sandbird/covid19-Greece",
+                             "αποθετήριο δεδομένων JSON Sandbird")),
               tags$li(tags$b("Δεδομένα λήψης μέτρων:"),
                       tags$a(href = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker",
                              "Oxford COVID-19 Government Response Tracker")),
