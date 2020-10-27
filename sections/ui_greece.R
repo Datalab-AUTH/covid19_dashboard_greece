@@ -31,13 +31,13 @@ body_greece <- dashboardBody(
           withSpinner(leafletOutput("overview_map_greece"))
         ),
         class = "map",
-        width = 7,
+        width = 8,
         style = 'padding:0px;'
       ),
       column(
         withSpinner(uiOutput("summary_table_greece")),
         class = "summary",
-        width = 5,
+        width = 4,
         style = 'padding:0px;'
       )
     )
