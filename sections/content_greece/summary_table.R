@@ -33,7 +33,7 @@ getSummaryDT_greece <- function() {
     options   = list(
       order          = list(1, "desc"),
       scrollX        = TRUE,
-      scrollY        = "82vh",
+      scrollY        = "84vh",
       scrollCollapse = T,
       dom            = 'ft',
       paging         = FALSE,
