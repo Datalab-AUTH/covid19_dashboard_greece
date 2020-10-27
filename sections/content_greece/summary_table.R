@@ -1,9 +1,7 @@
 output$summary_table_greece <- renderUI({
   tabBox(
     tabPanel(paste0(
-              "Επιβεβαιωμένα κρούσματα ανά Περιφέρεια (",
-              format(input$timeslider_greece, format="%d/%m/%Y"),
-              ")"
+              "Επίπεδο μέτρων ανά Περιφέρεια"
             ),
              div(
                dataTableOutput("summaryDT_greece"),
