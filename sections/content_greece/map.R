@@ -7,7 +7,7 @@ greece_map <- leaflet() %>%
               smoothFactor = 0.2, fillOpacity = 0.7,
               fillColor = ~map_pal(data_greece_areas$color),
               popup = paste("<b>", data_greece_spdf$LEKTIKO, "</b><br>",
-                            "Επίπεδο: ", data_greece_areas$level, "<br>")) %>%
+                            "Επίπεδο: ", data_greece_areas$level_text, "<br>")) %>%
   addLegend(position = "bottomleft", values = data_greece_areas$color,
             colors = c("#A5CB81", "#F6BC26", "#E5712A", "#AC242A"),
             labels = c("1. Ετοιμότητας", "2. Επιτήρησης", "3. Αυξημένης επιτήρησης", "4. Αυξημένου κινδύνου"),
