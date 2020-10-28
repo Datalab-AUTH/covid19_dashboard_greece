@@ -8,20 +8,6 @@ server <- function(input, output, session) {
     updateData()
   })
   
-  # Greece overall
-  observe({
-    data_greece <- data_atDate_greece(input$timeslider_greece)
-  })
-  
-  observe({
-    updateSliderInput(
-      session,
-      "timeslider_greece",
-      max = min(max(data_greece_region_timeline$date), max(data_greece_all$date)),
-      value = min(max(data_greece_region_timeline$date), max(data_greece_all$date))
-    )
-  })
-  
   # Twitter
   observe({
     updateSliderInput(
