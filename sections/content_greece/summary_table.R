@@ -46,9 +46,7 @@ getSummaryDT_greece <- function() {
     selection = "none"
   ) %>%
     formatStyle(columns = "level", target = "row",
-                backgroundColor = styleEqual(1:4, c("#A5CB81",
-                                                    "#F6BC26",
-                                                    "#E5712A",
+                backgroundColor = styleEqual(1:2, c("#F6BC26",
                                                     "#AC242A")),
                 color = "#222")
 }

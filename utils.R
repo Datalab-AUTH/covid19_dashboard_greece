@@ -95,8 +95,6 @@ str_trimmer <- function(string, break_limit, collapse = "<br>"){
 
 # Five color palette for map
 map_pal <- colorQuantile(palette = c("#AAAAAA",
-                                     "#A5CB81",
                                      "#F6BC26",
-                                     "#E5712A",
                                      "#AC242A"),
-                         domain = 0:4, n = 5, reverse = FALSE)
+                         domain = 0:2, n = 3, reverse = FALSE)

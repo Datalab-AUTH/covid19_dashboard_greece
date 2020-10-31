@@ -182,7 +182,7 @@ color_data <- fromJSON("data/greece_map/data.json") %>%
   rename("area" = "name1") %>%
   select(-"zip") %>%
   unique() %>%
-  mutate(color = recode(color, "green" = 1, "yellow" = 2, "orange" = 3, "red" = 4)) %>%
+  mutate(color = recode(color, "yellow" = 1, "red" = 2)) %>%
   add_row(area = "ΑΓΙΟ ΟΡΟΣ", color = 0)
 
 area_names <- read_csv("data/area_names.csv", col_types = "cc")
@@ -194,10 +194,8 @@ areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
   inner_join(area_names, by = "area") %>%
   mutate(level = replace(color, color == 0, NA),
          level_text = recode(color,
-                             `1` = "1. Ετοιμότητας",
-                             `2` = "2. Επιτήρησης",
-                             `3` = "3. Αυξημένης επιτήρησης",
-                             `4` = "4. Αυξημένου κινδύνου"))
+                             `1` = "A. Επιτήρησης",
+                             `2` = "B. Αυξημένου κινδύνου"))
 saveRDS(areas, "data/greece_areas.RDS")
 
 

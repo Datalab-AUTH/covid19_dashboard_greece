@@ -77,10 +77,8 @@ output$oxford_indices <- renderPlotly({
 
 output$measures_areas <- renderPlotly({
   data <- data_greece_areas$level_text %>%
-    factor(levels = c("1. Ετοιμότητας",
-                      "2. Επιτήρησης",
-                      "3. Αυξημένης επιτήρησης",
-                      "4. Αυξημένου κινδύνου")) %>%
+    factor(levels = c("A. Επιτήρησης",
+                      "B. Αυξημένου κινδύνου")) %>%
     table() %>%
     as.data.frame()
   p <- plot_ly(
@@ -89,7 +87,7 @@ output$measures_areas <- renderPlotly({
     x = ~.,
     type = 'bar',
     marker = list(
-      color = c("#A5CB81", "#F6BC26", "#E5712A", "#AC242A")
+      color = c("#F6BC26", "#AC242A")
     )
   ) %>%
     layout(
