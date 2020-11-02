@@ -9,8 +9,8 @@ greece_map <- leaflet() %>%
               popup = paste("<b>", data_greece_spdf$LEKTIKO, "</b><br>",
                             "Επίπεδο: ", data_greece_areas$level_text, "<br>")) %>%
   addLegend(position = "bottomleft", values = data_greece_areas$color,
-            colors = c("#F6BC26", "#AC242A"),
-            labels = c("A. Επιτήρησης", "B. Αυξημένου κινδύνου"),
+            colors = c("#F6BC26", "#AC242A", "#605F69"),
+            labels = c("A. Επιτήρησης", "B. Αυξημένου κινδύνου", "Γ. Συναγερμού"),
             title = "Επίπεδο μέτρων",
             opacity = 1)
   
