@@ -114,3 +114,51 @@ output$measures_areas <- renderPlotly({
   return(p)
 })
 
+output$measures_areas_population <- renderPlotly({
+  if (input$checkbox_measures_areas_population_pct) {
+    p <- plot_ly(
+      data = data_greece_areas_population,
+      y = ~percent,
+      x = ~level_text,
+      type = 'bar',
+      marker = list(
+        color = c("#F6BC26", "#AC242A", "#605F69")
+      )
+    ) %>%
+      layout(
+        xaxis = list(title = "Επίπεδο μέτρων"),
+        yaxis = list(title = "Ποσοστό πληθυσμού (%)")
+      )
+  } else {
+    p <- plot_ly(
+      data = data_greece_areas_population,
+      y = ~pop_sum,
+      x = ~level_text,
+      type = 'bar',
+      marker = list(
+        color = c("#F6BC26", "#AC242A", "#605F69")
+      )
+    ) %>%
+      layout(
+        xaxis = list(title = "Επίπεδο μέτρων"),
+        yaxis = list(title = "Πληθυσμός")
+      )
+  }
+
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return(p)
+})

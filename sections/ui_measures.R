@@ -32,6 +32,26 @@ body_measures <- dashboardBody(
     )
   ),
   fluidRow(
+    box(
+      title = "Επίπεδο προληπτικών μέτρων σε σχέση με τον πληθυσμό",
+      withSpinner(plotlyOutput("measures_areas_population")),
+      width = 6,
+      column(
+        checkboxInput("checkbox_measures_areas_population_pct", label = "Εμφάνιση ποσοστών", value = FALSE),
+        width = 3,
+        style = "float: right; padding: 10px; margin-right: 50px"
+      )
+    ),
+    box(
+      column(
+        uiOutput("measures_areas_population_text"),
+        width = 12,
+        style = "padding: 50px;"
+      ),
+      width = 6
+    )
+  ),
+  fluidRow(
     fluidRow(
       box(
         title = "Λήψη/Απελευθέρωση μέτρων",
