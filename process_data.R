@@ -185,7 +185,7 @@ color_data <- fromJSON("data/greece_map/data.json") %>%
   mutate(color = recode(color, "yellow" = 1, "red" = 2, "grey" = 3)) %>%
   add_row(area = "ΑΓΙΟ ΟΡΟΣ", color = 0)
 
-area_names <- read_csv("data/area_names.csv", col_types = "cc")
+area_names <- read_csv("data/area_names.csv", col_types = "cci")
 
 areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
                    id = greece_spdf_trans$KALCODE) %>%
@@ -196,9 +196,16 @@ areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
          level_text = recode(color,
                              `1` = "A. Επιτήρησης",
                              `2` = "B. Αυξημένου κινδύνου",
-                             `3` = "Γ. Συναγερμού"))
+                             `3` = "Γ. Συναγερμού",
+                             .default = "Δεν υφίσταται")) # for Agio Oros
 saveRDS(areas, "data/greece_areas.RDS")
 
+areas_population <- areas %>%
+  filter(!is.na(level)) %>%
+  group_by(level_text) %>%
+  summarise(pop_sum = sum(population), .groups = "drop") %>%
+  mutate(percent = round(100 * (pop_sum / sum(pop_sum)), 1))
+saveRDS(areas_population , "data/greece_areas_population.RDS")
 
 #
 # Update the dates

@@ -25,6 +25,7 @@ updateData <- function() {
   data_sandbird_cases <<- readRDS("data/data_sandbird_cases.RDS")
   data_greece_spdf <<- readRDS("data/greece_spdf.RDS")
   data_greece_areas <<- readRDS("data/greece_areas.RDS")
+  data_greece_areas_population <<- readRDS("data/greece_areas_population.RDS")
   data_twitter_hashtags <<- readRDS("data/data_twitter_hashtags.RDS")
   data_twitter_hashtags_total <<- readRDS("data/data_twitter_hashtags_total.RDS")
   data_twitter_date_tweets <<- readRDS("data/data_twitter_date_tweets.RDS")
