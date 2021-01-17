@@ -28,16 +28,16 @@ body_greece <- dashboardBody(
       column(
         box(
           width = 12,
-          withSpinner(leafletOutput("overview_map_greece"))
+          withSpinner(imageOutput("overview_map_greece"))
         ),
         class = "map",
-        width = 8,
+        width = 6,
         style = 'padding:0px;'
       ),
       column(
         withSpinner(uiOutput("summary_table_greece")),
         class = "summary",
-        width = 4,
+        width = 6,
         style = 'padding:0px;'
       )
     ),

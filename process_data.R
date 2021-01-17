@@ -200,6 +200,16 @@ areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
                              .default = "Δεν υφίσταται")) # for Agio Oros
 saveRDS(areas, "data/greece_areas.RDS")
 
+# prerendered map
+outfile <- "data/greece_map/map.png"
+outfile_size <- 1600
+png(filename = outfile, width = outfile_size, height = outfile_size, bg = "transparent")
+par(mar = c(0,0,0,0))
+plot(greece_spdf_trans,
+     col = map_pal(areas$color),
+     bg = "#444B55")
+dev.off()
+
 areas_population <- areas %>%
   filter(!is.na(level)) %>%
   group_by(level_text) %>%
