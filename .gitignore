@@ -49,3 +49,7 @@ data/*.RDS
 # twitter
 twitter/venv
 data/twitter/*.csv
+
+# prerendered map
+data/greece_map/map.png
+
