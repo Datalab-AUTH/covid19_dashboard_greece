@@ -77,7 +77,7 @@ if (data_greece_cumulative["status_code"] == 200) {
     first()
   saveRDS(data_greece_cumulative_parsed, "data/data_greece_cumulative.RDS")
 }
-data_greece_geo <- read_csv("data/greece_geo_coordinates.csv")
+data_greece_geo <- read_csv("data/greece_geo_coordinates.csv", col_types = "cddi")
 data_greece_region <- GET("https://covid-19-greece.herokuapp.com/regions")
 if (data_greece_region["status_code"] == 200) {
   data_greece_region_parsed <- data_greece_region %>%
