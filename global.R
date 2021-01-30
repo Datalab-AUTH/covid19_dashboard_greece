@@ -32,6 +32,8 @@ updateData <- function() {
   data_twitter_links_total <<- readRDS("data/data_twitter_links_total.RDS")
   data_measures <<- readRDS("data/data_measures.RDS")
   data_oxford <<- readRDS("data/data_oxford.RDS")
+  data_greece_vaccines_total <<- read_csv("data/data_greece_vaccines_total.csv",
+                                  col_types = cols(.default = "i", date = "D"))
 }
 
 updateData()

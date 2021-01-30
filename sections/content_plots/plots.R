@@ -154,6 +154,44 @@ output$tests_greece <- renderPlotly({
   return(p)
 })
 
+output$vaccinations <- renderPlotly({
+  data <- data_greece_vaccines_total
+  p <- plot_ly(data = data, x = ~date, y = ~new_vaccinations, type = 'bar', name = "Νέοι εμβολιασμοί") %>%
+    add_trace(data = data, x = ~date, y = ~total_vaccinations, type = 'scatter', mode = 'lines', name = "Σύνολο", yaxis = "y2") %>%
+    layout(
+      yaxis = list(title = "Εμβολιασμοί", rangemode = "nonnegative"),
+      yaxis2 = list(
+        overlaying = "y",
+        side = "right",
+        title = "Σύνολο",
+        rangemode = "nonnegative"
+      ),
+      xaxis = list(
+        title = "Ημερομηνία",
+        type = "date",
+        tickformat = "%d/%m/%y"
+      ),
+      barmode = "stack"
+    )
+  
+  p <- layout(p,
+              font = list(color = "#FFFFFF"),
+              paper_bgcolor = "#444B55",
+              plot_bgcolor = "#444B55",
+              yaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              ),
+              xaxis = list(
+                zerolinecolor = "#666666",
+                linecolor = "#999999",
+                gridcolor = "#666666"
+              )
+  )
+  return(p)
+})
+
 output$gender_greece <- renderPlotly({
   deaths <- data_greece_all %>%
     slice(n()) %>%

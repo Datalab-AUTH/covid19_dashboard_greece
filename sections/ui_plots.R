@@ -77,6 +77,21 @@ body_plots <- dashboardBody(
     ),
     fluidRow(
       box(
+        title = "Εμβολιασμοί",
+        withSpinner(plotlyOutput("vaccinations")),
+        width = 6
+      ),
+      box(
+        column(
+          uiOutput("vaccinations_text"),
+          width = 12,
+          style = "padding: 50px;"
+        ),
+        width = 6
+      )
+    ),
+    fluidRow(
+      box(
         title = "Ηλικιακή κατανομή",
         withSpinner(plotlyOutput("age_greece")),
         column(
