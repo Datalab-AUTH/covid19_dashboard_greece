@@ -218,6 +218,39 @@ areas_population <- areas %>%
 saveRDS(areas_population , "data/greece_areas_population.RDS")
 
 #
+# vaccines from data.gov.gr
+#
+date_vaccinations_start <- "2020-10-28"
+date_now <- Sys.Date()
+data_greece_vaccines <- GET(paste0(
+  "https://data.gov.gr/api/v1/query/mdg_emvolio?date_from=",
+  date_vaccinations_start,
+  "&date_to=",
+  date_now),
+  add_headers(Authorization = Sys.getenv("DATAGOVGRTOKEN")))
+if (data_greece_vaccines["status_code"] == 200) {
+  data_greece_vaccines_parsed <- data_greece_vaccines %>%
+    content(as="text", encoding = "UTF-8") %>%
+    fromJSON() %>%
+    mutate(date = as.Date(referencedate)) %>%
+    select(-"referencedate")
+  data_greece_vaccines_total <- data_greece_vaccines_parsed %>%
+    group_by(date) %>%
+    summarise(total_distinct_persons = sum(totaldistinctpersons),
+              total_vaccinations = sum(totalvaccinations),
+              .groups = "drop") %>%
+    mutate(completed_both_doses = total_vaccinations - total_distinct_persons,
+           new_vaccinations = total_vaccinations - lag(total_vaccinations, 1),
+           new_distinct_persons = total_distinct_persons - lag(total_distinct_persons, 1),
+           new_both_doses = completed_both_doses - lag(completed_both_doses, 1),
+           new_both_doses_7days = rollsum(new_both_doses, k = 7, fill = NA, align = "right"))
+  data_greece_vaccines_total$new_vaccinations[1] <- data_greece_vaccines_total$total_vaccinations[1]
+  data_greece_vaccines_total$new_distinct_persons[1] <- data_greece_vaccines_total$total_distinct_persons[1]
+  data_greece_vaccines_total$new_both_doses[1] <- data_greece_vaccines_total$completed_both_doses[1]
+  write_csv(data_greece_vaccines_total, "data/data_greece_vaccines_total.csv")
+}
+
+#
 # Update the dates
 #
 current_date <- max(data_greece_all$date) %>% format("%m/%d/%y")
