@@ -1,7 +1,9 @@
 output$summary_table_greece <- renderUI({
   tabBox(
     tabPanel(paste0(
-              "Επιβεβαιωμένα κρούσματα ανά Περιφέρεια"
+              "Επιβεβαιωμένα κρούσματα ανά Περιφέρεια (",
+              format(as.Date(max(data_sandbird_prefectures$date)), "%d/%m/%Y"),
+              ")"
             ),
              div(
                dataTableOutput("summaryDT_greece"),
