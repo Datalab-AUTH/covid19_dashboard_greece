@@ -78,53 +78,6 @@ if (data_greece_cumulative["status_code"] == 200) {
   saveRDS(data_greece_cumulative_parsed, "data/data_greece_cumulative.RDS")
 }
 data_greece_geo <- read_csv("data/greece_geo_coordinates.csv", col_types = "cddi")
-data_greece_region <- GET("https://covid-19-greece.herokuapp.com/regions")
-if (data_greece_region["status_code"] == 200) {
-  data_greece_region_parsed <- data_greece_region %>%
-    content(as="text", encoding = "UTF-8") %>%
-    fromJSON() %>%
-    first() %>%
-    rename("confirmed" = "region_cases") %>%
-    merge(data_greece_geo) %>%
-    mutate(confirmedPerCapita = round(100000 * confirmed / population, 2))
-  saveRDS(data_greece_region_parsed, "data/data_greece_region.RDS")
-}
-data_greece_region_timeline <- GET("https://covid-19-greece.herokuapp.com/regions-history")
-if (data_greece_region_timeline["status_code"] == 200) {
-  data_greece_geo <- read_csv("data/greece_geo_coordinates.csv")
-  d <- data_greece_region_timeline %>%
-    content(as="text", encoding = "UTF-8") %>%
-    fromJSON() %>%
-    first()
-  dates <- d %>%
-    pluck("date") %>%
-    enframe() %>%
-    mutate(value = as.Date(value, format = "%Y-%m-%d")) %>%
-    rename("date" = "value", "index" = "name")
-  timeline <- d %>%
-    pluck("regions") %>%
-    melt() %>%
-    filter(variable == "region_cases") %>%
-    select(-variable) %>%
-    merge(data_greece_geo) %>%
-    rename(
-      "region" = "region_en_name",
-      "index" = "L1",
-      "confirmed" = "value"
-      ) %>%
-    merge(dates) %>%
-    select(-index) %>%
-    group_by(region) %>%
-    arrange(region) %>%
-    mutate(
-      confirmed_new = confirmed - lag(confirmed, 1),
-      confirmed_7day_mean = rollmean(confirmed_new, 7, fill = NA, align = "right"),
-      confirmedPerCapita = round(100000 * confirmed / population, 2),
-      confirmedPerCapita_new = round(100000 * confirmed_new / population, 2)
-    ) %>%
-    as_tibble()
-  saveRDS(timeline, "data/data_greece_region_timeline.RDS")
-}
 data_greece_age <- GET("https://covid-19-greece.herokuapp.com/age-distribution")
 if (data_greece_age["status_code"] == 200) {
   data_greece_age_parsed <- data_greece_age %>%
@@ -157,6 +110,12 @@ if (data_greece_gender["status_code"] == 200) {
 }
 
 #
+# Area names. Used for map.
+#
+area_names <- read_csv("data/area_names.csv", col_types = "ccci") %>%
+  mutate(area_short = gsub("ΠΕΡΙΦΕΡΕΙΑΚΗ ΕΝΟΤΗΤΑ ", "", area))
+
+#
 # data from SandBird github repo
 # https://github.com/Sandbird/covid19-Greece
 #
@@ -167,6 +126,37 @@ data_sandbird_cases <- read_csv("data/sandbird/cases.csv",
          total_tests_pcr_ag = total_tests + ag_tests)
 saveRDS(data_sandbird_cases, "data/data_sandbird_cases.RDS")
 
+data_sandbird_prefectures <- read_csv("data/sandbird/prefectures.csv",
+                                      col_names = TRUE,
+                                      col_types = cols(.default = "i",
+                                                       date = "D",
+                                                       region_gr = "c",
+                                                       region_en = "c",
+                                                       color = "c")
+                                     )
+
+data_sandbird_map <- data_sandbird_prefectures %>%
+  filter(region_en != "Athens Prefecture",
+        region_en != "Under Investigation",
+        region_en != "Without permanent residency in Greece") %>%
+  group_by(region_en) %>%
+  arrange(region_en, date) %>%
+  mutate(rollsum = rollsum(cases, k = 7, fill = NA, align = c("right"))) %>%
+  select("region_en", "date", "cases", "rollsum") %>%
+  full_join(area_names, by = "region_en") %>%
+  mutate(rollsum_pop = 100000 * rollsum / population) %>%
+  filter(date == max(date)) %>%
+  ungroup() %>%
+  select("area", "area_short_gen", "cases", "rollsum_pop") %>%
+  mutate(color = case_when(is.na(rollsum_pop) ~ 0, # grey
+                         rollsum_pop < 5 ~ 1,
+                         rollsum_pop < 20 ~ 2,
+                         rollsum_pop < 40 ~ 3,
+                         rollsum_pop < 60 ~ 4,
+                         rollsum_pop < 70 ~ 5,
+                         rollsum_pop < 85 ~ 6,
+                         TRUE ~ 7))
+
 #
 # map data from covid19.gov.gr
 #
@@ -175,30 +165,11 @@ greece_spdf <- readOGR( "data/greece_map/perif_enot/", encoding="cp1253")
 greece_spdf_trans <- spTransform(greece_spdf, CRS("+proj=longlat +ellps=GRS80"))
 saveRDS(greece_spdf_trans, "data/greece_spdf.RDS")
 
-# color data for areas
-color_data <- fromJSON("data/greece_map/data.json") %>%
-  lapply(data.frame, stringsAsFactors = FALSE) %>%
-  bind_rows() %>%
-  rename("area" = "name1") %>%
-  select(-"zip") %>%
-  unique() %>%
-  mutate(color = recode(color, "yellow" = 1, "red" = 2, "grey" = 3)) %>%
-  add_row(area = "ΑΓΙΟ ΟΡΟΣ", color = 0)
-
-area_names <- read_csv("data/area_names.csv", col_types = "cci")
-
 areas <- data.frame(place = greece_spdf_trans$LEKTIKO,
                    id = greece_spdf_trans$KALCODE) %>%
   rename("area" = "place") %>%
-  inner_join(color_data, by = "area") %>%
-  inner_join(area_names, by = "area") %>%
-  mutate(level = replace(color, color == 0, NA),
-         level_text = recode(color,
-                             `1` = "A. Επιτήρησης",
-                             `2` = "B. Αυξημένου κινδύνου",
-                             `3` = "Γ. Συναγερμού",
-                             .default = "Δεν υφίσταται")) # for Agio Oros
-saveRDS(areas, "data/greece_areas.RDS")
+  inner_join(data_sandbird_map, by = "area") %>%
+  inner_join(area_names, by = "area")
 
 # prerendered map
 outfile <- "data/greece_map/map.png"
@@ -211,8 +182,8 @@ plot(greece_spdf_trans,
 dev.off()
 
 areas_population <- areas %>%
-  filter(!is.na(level)) %>%
-  group_by(level_text) %>%
+  filter(!is.na(color)) %>%
+  group_by(color) %>%
   summarise(pop_sum = sum(population), .groups = "drop") %>%
   mutate(percent = round(100 * (pop_sum / sum(pop_sum)), 1))
 saveRDS(areas_population , "data/greece_areas_population.RDS")
