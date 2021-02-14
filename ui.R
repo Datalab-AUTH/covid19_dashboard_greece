@@ -3,7 +3,6 @@ library("shinythemes")
 source("sections/ui_about.R", local = TRUE)
 source("sections/ui_greece.R", local = TRUE)
 source("sections/ui_plots.R", local = TRUE)
-source("sections/ui_measures.R", local = TRUE)
 source("sections/ui_twitter.R", local = TRUE)
 
 datalab_logo_html <- '<div style="float:left">
@@ -52,7 +51,6 @@ ui <- fluidPage(
     fluid       = TRUE,
     tabPanel("Συνοπτικά", page_greece, value = "page-greece"),
     tabPanel("Γραφήματα", page_plots, value = "page-plots"),
-    tabPanel("Μέτρα", page_measures, value = "page-measures"),
     tabPanel("Twitter", page_twitter, value = "page-twitter"),
     
     tabPanel(HTML("Σχετικά με την ιστοσελίδα</a></li>

@@ -128,6 +128,23 @@ body_plots <- dashboardBody(
         ),
         width = 6
       )
+    ),
+    fluidRow(
+      fluidRow(
+        box(
+          title = "Δείκτες λήψης μέτρων",
+          withSpinner(plotlyOutput("oxford_indices")),
+          width = 6
+        ),
+        box(
+          column(
+            uiOutput("oxford_indices_text"),
+            width = 12,
+            style = "padding: 50px;"
+          ),
+          width = 6
+        )
+      )
     )
   )
 )
