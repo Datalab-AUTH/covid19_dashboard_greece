@@ -15,23 +15,24 @@ output$summaryDT_greece <- renderDataTable(getSummaryDT_greece())
 proxy_summaryDT_greece  <- dataTableProxy("summaryDT_greece")
 
 summariseData_greece <- function() {
-  data_greece_areas %>%
-    select("area_short_gen", "level_text", "level") %>%
+  data_sandbird_map %>%
+    select("area_short_gen", "cases", "rollsum_pop", "color") %>%
     rename(
-      "Περιφέρεια" = "area_short_gen",
-      "Επίπεδο μέτρων" = "level_text"
+      "Περιφερειακή Ενότητα" = "area_short_gen",
+      "Νέα κρούσματα" = "cases",
+      "Κρούσματα τελευταίων 7 ημερών \n/ 100.000 κατοίκους" = "rollsum_pop"
       ) %>%
     as.data.frame()
 }
 
 getSummaryDT_greece <- function() {
   table_data <- summariseData_greece()
-  my_levels = na.omit(unique(table_data$level))
+  my_levels = na.omit(unique(table_data$color))
   datatable(
     na.omit(table_data),
     rownames  = FALSE,
     options   = list(
-      order          = list(1, "desc"),
+      order          = list(2, "desc"), # sort by 3rd column (7-day cases/100000)
       scrollX        = TRUE,
       scrollY        = "84vh",
       scrollCollapse = T,
@@ -41,13 +42,12 @@ getSummaryDT_greece <- function() {
         search = "Αναζήτηση:",
         zeroRecords  = "Δεν βρέθηκαν δεδομένα"
       ),
-      columnDefs = list(list(visible = FALSE, targets = c(2)))
+      columnDefs = list(list(visible = FALSE, targets = c(3))) # hide 4th column
     ),
     selection = "none"
   ) %>%
-    formatStyle(columns = "level", target = "row",
-                backgroundColor = styleEqual(1:3, c("#F6BC26",
-                                                    "#AC242A",
-                                                    "#605F69")),
-                color = "#222")
+    formatStyle(columns = "color", target = "row",
+                backgroundColor = styleEqual(0:7, map_pal(0:7)),
+                color = "#222" # text color
+                )
 }
