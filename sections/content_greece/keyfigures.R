@@ -107,8 +107,6 @@ output$box_keyFigures_greece <- renderUI(box(
       style = "margin-left: -20px"
     )
   ),
-  div(
-    "Τελευταία ενημέρωση: ", strftime(changed_date, format = "%d/%m/%Y - %R %Z. "),
+  div("Τελευταία ενημέρωση: ", strftime(changed_date, format = "%d/%m/%Y - %R %Z. ")),
   width = 12
-  )
 ))
