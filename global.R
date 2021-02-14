@@ -8,7 +8,6 @@ library("plotly")
 library("DT")
 library("countrycode")
 library("wordcloud2")
-library("vistime")
 
 source("utils.R", local = T)
 
