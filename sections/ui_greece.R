@@ -43,16 +43,6 @@ body_greece <- dashboardBody(
     ),
     style = 'padding-bottom: 0px;'
   ),
-  fluidRow(
-    box(
-      column(
-        uiOutput("covid19_gov_gr_text"),
-        width = 12,
-        style = "padding: 0px;"
-      ),
-      width = 12
-    )
-  ),
   tags$style(type = 'text/css', ".nav-tabs-custom { background: #444b55; }"),
   tags$style(type = 'text/css', ".nav-tabs-custom > .nav-tabs > li > a {color: #fff;}"),
   tags$style(type = 'text/css', ".nav-tabs-custom .nav-tabs {border-bottom-color: #444b55; }
