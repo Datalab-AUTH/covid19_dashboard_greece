@@ -156,6 +156,7 @@ data_sandbird_map <- data_sandbird_prefectures %>%
                          rollsum_pop < 70 ~ 5,
                          rollsum_pop < 85 ~ 6,
                          TRUE ~ 7))
+saveRDS(data_sandbird_map, "data/data_sandbird_map.RDS")
 
 #
 # map data from covid19.gov.gr
