@@ -20,7 +20,7 @@ summariseData_greece <- function() {
     rename(
       "Περιφερειακή Ενότητα" = "area_short_gen",
       "Νέα κρούσματα" = "cases",
-      "Κρούσματα τελευταίων 7 ημερών \n/ 100.000 κατοίκους" = "rollsum_pop"
+      "Κρούσματα τελευταίων 7 ημερών/100.000 κατοίκους" = "rollsum_pop"
       ) %>%
     as.data.frame()
 }
