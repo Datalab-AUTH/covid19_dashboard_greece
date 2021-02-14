@@ -1,7 +1,7 @@
 output$summary_table_greece <- renderUI({
   tabBox(
     tabPanel(paste0(
-              "Επίπεδο μέτρων ανά Περιφέρεια"
+              "Επιβεβαιωμένα κρούσματα ανά Περιφέρεια"
             ),
              div(
                dataTableOutput("summaryDT_greece"),
