@@ -253,33 +253,6 @@ if (data_refugee_camps["status_code"] == 200) {
 saveRDS(data_refugee_camps, "data/data_refugee_camps.RDS")
 # TODO: is this trustworthy enough to use it?
 
-#
-# Government measures
-#
-data_measures <- GET("https://covid-19-greece.herokuapp.com/measures-timeline")
-if (data_measures["status_code"] == 200) {
-  d <- data_measures %>%
-    content(as="text", encoding = "UTF-8") %>%
-    fromJSON() %>%
-    pluck("measures")
-  d_impose <- d %>%
-    pluck("imposition") %>%
-    mutate(group = "impose", color = "#fc8d62")
-  d_lift <- d %>%
-    pluck("lifting") %>%
-    mutate(group = "lift", color = "#a6d854")
-  d <- d_impose %>%
-    rbind(d_lift) %>%
-    mutate(
-      blank = "",
-      category_el = str_trimmer(category_el, 20),
-      event_el = paste0(event_el, " (", format(as.Date(date), format="%d/%m/%Y"), ")"),
-      event_el = str_trimmer(event_el, 25)
-    ) %>%
-    arrange(category_el, date)
-}
-saveRDS(d, "data/data_measures.RDS")
-
 # Oxford data for government actions (Greece only)
 data_oxford <- read_csv("data/data_oxford.csv") %>%
   mutate(Date = as.Date.character(Date, format="%Y%m%d")) %>%
