@@ -144,7 +144,7 @@ data_sandbird_map <- data_sandbird_prefectures %>%
   mutate(rollsum = rollsum(cases, k = 7, fill = NA, align = c("right"))) %>%
   select("region_en", "date", "cases", "rollsum") %>%
   full_join(area_names, by = "region_en") %>%
-  mutate(rollsum_pop = 100000 * rollsum / population) %>%
+  mutate(rollsum_pop = round(100000 * rollsum / population, 1)) %>%
   filter(date == max(date)) %>%
   ungroup() %>%
   select("area", "area_short_gen", "cases", "rollsum_pop") %>%
