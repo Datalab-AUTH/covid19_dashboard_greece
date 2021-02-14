@@ -13,27 +13,21 @@ key_figures_greece <- reactive({
   )
   
   data_new <- list(
-    new_confirmed = data_diff$confirmed / data_yesterday$confirmed * 100,
-    new_deaths    = data_diff$deaths / data_yesterday$deaths * 100,
-    new_icu       = data_diff$icu / data_yesterday$icu * 100,
-    new_tests     = data_diff$tests / data_yesterday$tests * 100
+    new_icu       = data_diff$icu / data_yesterday$icu * 100
   )
   
   keyFigures <- list(
-    "confirmed" = HTML(paste(format(data$confirmed, big.mark = " "), sprintf("<h4>%+i (%+.1f %%)</h4>", data_diff$confirmed, data_new$new_confirmed))),
-    "deceased"  = HTML(paste(format(data$deaths, big.mark = " "), sprintf("<h4>%+i (%+.1f %%)</h4>", data_diff$deaths, data_new$new_deaths))),
+    "confirmed" = HTML(paste(format(data$confirmed, big.mark = " "), sprintf("<h4>%+i</h4>", data_diff$confirmed))),
+    "deceased"  = HTML(paste(format(data$deaths, big.mark = " "), sprintf("<h4>%+i</h4>", data_diff$deaths))),
     "icu"       = HTML(paste(format(data$icu, big.mark = " "), sprintf("<h4>(%+.1f %%)</h4>", data_new$new_icu))),
-    "tests"     = HTML(paste(format(data$tests, big.mark = " "), sprintf("<h4>%+i (%+.1f %%)</h4>", data_diff$tests, data_new$new_tests))),
+    "tests"     = HTML(paste(format(data$tests, big.mark = " "), sprintf("<h4>%+i</h4>", data_diff$tests))),
     "case_age"  = HTML(paste(format(data_greece_age_averages[["case"]], big.mark = " "), sprintf("<h4>έτη</h4>"))),
     "death_age" = HTML(paste(format(data_greece_age_averages[["death"]], big.mark = " "), sprintf("<h4>έτη</h4>"))),
     "date"      = data$date
   )
   
   if (is.infinite(data_new$new_icu)) keyFigures$icu = HTML(paste(format(data$icu, big.mark = " "), "<h4>(όλοι νέοι)</h4>"))
-  if (data_new$new_confirmed == 0) keyFigures$confirmed = HTML(paste(format(data$confirmed, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
-  if (data_new$new_deaths == 0) keyFigures$deceased = HTML(paste(format(data$deaths, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
   if (is.nan(data_new$new_icu) || data_new$new_icu == 0) keyFigures$icu = HTML(paste(format(data$icu, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
-  if (data_new$new_tests == 0) keyFigures$tests = HTML(paste(format(data$tests_new, big.mark = " "), "<h4>(καμία αλλαγή)</h4>"))
 
   return(keyFigures)
 })
