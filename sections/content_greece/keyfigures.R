@@ -5,11 +5,14 @@ key_figures_greece <- reactive({
   data_yesterday <- data_greece_all %>%
     filter(date == max(date) - 1)
   
+  data_sandbird <- data_sandbird_cases %>%
+    filter(date == max(date))
+  
   data_diff <- list(
-    confirmed = data$confirmed - data_yesterday$confirmed,
-    deaths    = data$deaths - data_yesterday$deaths,
+    confirmed = data_sandbird$new_cases,
+    deaths    = data_sandbird$new_deaths,
     icu       = data$icu - data_yesterday$icu,
-    tests     = data$tests - data_yesterday$tests
+    tests     = data_sandbird$new_tests
   )
   
   data_new <- list(
@@ -23,7 +26,7 @@ key_figures_greece <- reactive({
     "tests"     = HTML(paste(format(data$tests, big.mark = " "), sprintf("<h4>%+i</h4>", data_diff$tests))),
     "case_age"  = HTML(paste(format(data_greece_age_averages[["case"]], big.mark = " "), sprintf("<h4>έτη</h4>"))),
     "death_age" = HTML(paste(format(data_greece_age_averages[["death"]], big.mark = " "), sprintf("<h4>έτη</h4>"))),
-    "date"      = data$date
+    "date"      = data_sandbird$date
   )
   
   if (is.infinite(data_new$new_icu)) keyFigures$icu = HTML(paste(format(data$icu, big.mark = " "), "<h4>(όλοι νέοι)</h4>"))
