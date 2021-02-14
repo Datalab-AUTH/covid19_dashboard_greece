@@ -134,6 +134,8 @@ data_sandbird_prefectures <- read_csv("data/sandbird/prefectures.csv",
                                                        region_en = "c",
                                                        color = "c")
                                      )
+saveRDS(data_sandbird_prefectures, "data/data_sandbird_prefectures.RDS")
+
 
 data_sandbird_map <- data_sandbird_prefectures %>%
   filter(region_en != "Athens Prefecture",

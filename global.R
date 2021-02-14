@@ -23,6 +23,7 @@ updateData <- function() {
   data_greece_age_averages <<- readRDS("data/data_greece_age_averages.RDS")
   data_greece_gender <<- readRDS("data/data_greece_gender.RDS")
   data_sandbird_cases <<- readRDS("data/data_sandbird_cases.RDS")
+  data_sandbird_prefectures <<- readRDS("data/data_sandbird_prefectures.RDS")
   data_sandbird_map <<- readRDS("data/data_sandbird_map.RDS")
   data_greece_spdf <<- readRDS("data/greece_spdf.RDS")
   data_twitter_hashtags <<- readRDS("data/data_twitter_hashtags.RDS")
