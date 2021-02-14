@@ -109,9 +109,6 @@ output$box_keyFigures_greece <- renderUI(box(
   ),
   div(
     "Τελευταία ενημέρωση: ", strftime(changed_date, format = "%d/%m/%Y - %R %Z. "),
-    "Τα δεδομένα παρέχονται από την εθελοντική δράση για την αντιμετώπιση της πανδημίας",
-    tags$a(href = "https://www.covid19response.gr/",
-           "COVID-19 Response Greece.")
-      ),
   width = 12
+  )
 ))
