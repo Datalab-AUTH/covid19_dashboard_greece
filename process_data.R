@@ -136,7 +136,9 @@ data_sandbird_prefectures <- read_csv("data/sandbird/prefectures.csv",
                                      )
 saveRDS(data_sandbird_prefectures, "data/data_sandbird_prefectures.RDS")
 
-
+# factor for tuning area colors in the map. Smaller values move
+# everything towards red, higher values move everything towards green
+color_factor <- 40
 data_sandbird_map <- data_sandbird_prefectures %>%
   filter(region_en != "Athens Prefecture",
         region_en != "Under Investigation",
@@ -151,12 +153,12 @@ data_sandbird_map <- data_sandbird_prefectures %>%
   ungroup() %>%
   select("area", "area_short_gen", "cases", "rollsum_pop") %>%
   mutate(color = case_when(is.na(rollsum_pop) ~ 0, # grey
-                         rollsum_pop < 5 ~ 1,
-                         rollsum_pop < 20 ~ 2,
-                         rollsum_pop < 40 ~ 3,
-                         rollsum_pop < 60 ~ 4,
-                         rollsum_pop < 70 ~ 5,
-                         rollsum_pop < 85 ~ 6,
+                         rollsum_pop < 1 * color_factor ~ 1,
+                         rollsum_pop < 2 * color_factor ~ 2,
+                         rollsum_pop < 3 * color_factor ~ 3,
+                         rollsum_pop < 4 * color_factor ~ 4,
+                         rollsum_pop < 5 * color_factor ~ 5,
+                         rollsum_pop < 6 * color_factor ~ 6,
                          TRUE ~ 7))
 saveRDS(data_sandbird_map, "data/data_sandbird_map.RDS")
 
