@@ -62,36 +62,6 @@ body_twitter <- dashboardBody(
           ),
           width = 6
         )
-      ),
-      fluidRow(
-        box(
-          title = "Tweets ανά ημέρα",
-          plotlyOutput("twitter_tweets_per_day"),
-          width = 6
-        ),
-        box(
-          column(
-            uiOutput("twitter_tweets_per_day_text"),
-            width = 12,
-            style = "padding: 50px;"
-          ),
-          width = 6
-        )
-      ),
-      fluidRow(
-        box(
-          title = "Δημοφιλείς σύνδεσμοι",
-          uiOutput("twitter_links_total"),
-          width = 6
-        ),
-        box(
-          column(
-            uiOutput("twitter_links_total_text"),
-            width = 12,
-            style = "padding: 50px;"
-          ),
-          width = 6
-        )
       )
     )
   )
