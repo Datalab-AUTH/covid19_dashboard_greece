@@ -24,7 +24,7 @@ ui <- fluidPage(
     tags$style(
       HTML('.wrapper {height: auto !important; position:relative; overflow-x:hidden; overflow-y:hidden}')
       ),
-    includeHTML("google-analytics.html")
+    includeHTML("plausible-analytics.html")
   ),
   tags$style(type = "text/css", "@media (max-width: 760px) { #csd_auth_logos { display: none; } }"),
   tags$style(type = "text/css", ".container-fluid {padding-left: 0px; padding-right: 0px !important;}"),
